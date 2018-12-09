@@ -2,7 +2,7 @@
     <button mat-icon-button (click)="drawer.toggle()" *ngIf="user.isAutenticate()"><i class="material-icons md-dark">person</i></button>
 </app-header>
 <mat-drawer-container [hasBackdrop]="true">
-    <mat-drawer *ngIf="user.isAutenticate()"  #drawer [mode]="push">
+    <mat-drawer #drawer [mode]="push">
         <mat-tab-group>
             <mat-tab label="Cliente">
                 <mat-nav-list>
@@ -19,132 +19,69 @@
     </mat-drawer>
     <mat-drawer-content>
 
-
-        <div class="main" *ngIf="user.isAutenticate()">
-
-        </div>
-
-        <div class="main" *ngIf="!user.isAutenticate()">
-
-            <div class="jumbotron container banner mt-5">
-                <h1 class="display-1 mt-5 mb-3">
-                    <strong>COOPERDEV</strong></h1>
-                <h3 class="lead align-right display-4 mb-3">
-                    Cooperativa de Serviços em Tecnologia e Desenvolvimento Web</h3>
-
-                <div class="align-right mb-3 mt-5"><a class="btn btn-md btn-primary display-4" href="register">
-                        Cadastre-se</a></div>
-            </div>
-            <div class="container mb-5">
-                    <div class="row justify-content-center">
-                        <div class="col-sm-12 ol-md-6">
-                            <h3 class="display-5">
-                                NÓS SOMOS SCRUM</h3>
-                            <p class="text-left display-7">
-                                O Papo com a gente aqui é bem simples:<br>- Agende uma demonstração do software em um mês a
-                                partir de agora;
-                                <br>- Como equipe, temos um mês para deixar o software pronto para uma demo, com
-                                funcionalidades prontas, não simplesmente telas;
-                                <br>- Na demonstração, obtemos seu feedback e usamos para guiar o seu próximo mês de
-                                trabalho de desenvolvimento.<br></p>
-                            <div class="align-self-left"><a class="btn btn-sm btn-primary display-4" href="http://www.desenvolvimentoagil.com.br/scrum/"
-                                    target="_blank">Saiba Mais</a></div>
-                                    
+        <div class="main">
+            <div *ngIf="user.isAutenticate()">
+                    <div class="jumbotron container banner mt-5">
+                            <h1 class="display-1 mt-3 mb-3">
+                                <strong>COOPERDEV</strong></h1>
+                            <h3 class="lead align-right display-4 mb-5">
+                                Cooperativa de Serviços em Tecnologia e Desenvolvimento Web</h3>
+            
                         </div>
-                        <img src="../../../assets/images/agile101-what-is-scrum-437x144.png" width="540.1805555555555"
-                            height="178" alt="scrum">
-                    </div>
-                    <mat-divider class="mb-4 mt-4"></mat-divider>
-                    <ul>
-                        <li><strong>COMUNIDADE&nbsp;</strong>- Desenvolvimento é em comunidade, usamos o princípio do
-                            cooperativismo para crescermos como uma comunidade comprometida e dedicada.</li>
-                        <li><strong>AGILIDADE</strong> - Atualmente os métodos ágeis simplificam muito a vida de quem
-                            contrata serviços de desenvolvimento.&nbsp;</li>
-                        <li><strong>ECONOMIA </strong>- Acreditamos que em comunidade podemos transformar o
-                            desenvolvimento de software algo acessível.&nbsp;</li>
-                        <li><strong>FLEXIBILIDADE</strong> - Com a metodologia SCRUM, você acompanha cada passo do
-                            desenvolvimento, podendo solicitar alterações sempre que precisar.</li>
-                    </ul>
-                </div>
-            <div class="container d-flex justify-content-between mb-3">
 
-                <mat-card class="card-50">
-
-                    <img mat-card-image src="../../../assets/images/mbr-1080x696.jpg" alt="Quero Contratar Serviços">
-                    <mat-card-title>Quero Desenvolver um Produto</mat-card-title>
-                    <mat-card-content>
-                        <p>Temos a tecnologia e a equipe que você precisa para colocar sua empresa na internet ou por
-                            em prática aquele projeto que tanto sonhou. Consulte-nos!</p>
-                    </mat-card-content>
-                </mat-card>
-
-                <mat-card class="card-50">
-
-                    <img mat-card-image src="../../../assets/images/mbr-1-510x340.jpg" alt="Sou Desenvolver">
-                    <mat-card-title>Sou Desenvolvedor</mat-card-title>
-                    <mat-card-content>
-                        <p>Nós queremos resolver o problema da distância entre quem está disposto a desenvolver com
-                            quem precisa de desenvolvimento, utilizamos as melhores ferramentas de mercado. Faça parte!</p>
-                    </mat-card-content>
-                </mat-card>
-
-            </div>
-
-
-
-            <div class="container d-flex justify-content-between mb-5 mt-5">
-                <mat-card class="card-25">
-
-                    <img mat-card-image src="../../../assets/images/mbr-510x339.jpg" alt="Landing Page">
-                    <mat-card-title>Landing Page</mat-card-title>
-                    <mat-card-content>
-                        <p>O conceito de Landing Page vai além da sua tradução literal (página de aterrissagem). No
-                            Marketing Digital, são páginas que possuem todos os elementos voltados à conversão do
-                            visitante em Lead, oportunidade ou cliente. Por esse motivo, Landing Pages costumam ter
-                            taxas de conversão maiores do que as de páginas comuns.</p>
-                    </mat-card-content>
-                </mat-card>
-
-                <mat-card class="card-25">
-
-                    <img mat-card-image src="../../../assets/images/mbr-510x340.jpg" alt="Landing Page">
-                    <mat-card-title>Loja Virtual</mat-card-title>
-                    <mat-card-content>
-                        <p>As vendas pela internet representam também uma grande oportunidade para as pequenas
-                            empresas, uma vez que as ferramentas de marketing on-line possibilitam que briguem de igual
-                            para igual com os grandes varejistas. Por isso, as lojas virtuais de pequeno porte são as
-                            que apresentam crescimento mais significativo, tirando cada vez mais quota de mercado dos
-                            grandes varejistas na internet.</p>
-                    </mat-card-content>
-                </mat-card>
-                <mat-card class="card-25">
-
-                    <img mat-card-image src="../../../assets/images/mbr-3-510x363.jpg" alt="Landing Page">
-                    <mat-card-title>Sistema Web</mat-card-title>
-                    <mat-card-content>
-                        <p>O número de usuários da internet no Brasil atingiu cerca de 100 milhões, de acordo com a
-                            última pesquisa realizada pela Agência Brasil. Esse número mostra a importância das
-                            empresas garantirem uma boa presença online para impulsionar as vendas. E a principal forma
-                            de garantir essa presença é através de um site ou aplicativo.</p>
-                    </mat-card-content>
-                </mat-card>
-                <mat-card class="card-25">
-
-                    <img mat-card-image src="../../../assets/images/mbr-1-510x340.jpg" alt="Landing Page">
-                    <mat-card-title>APP</mat-card-title>
-                    <mat-card-content>
-                        <p>Segundo uma pesquisa de mercado a cargo da Gartner, 102 mil milhões de apps serão instaladas
-                            durante o ano de 2013, 91% gratuitas, que ainda assim gerarão 26 biliões de Dólares
-                            Americanos. Conforme um relatório analítico estima-se que as receitas provenientes da
-                            distribuição de Apps ultrapassem os 10 mil milhões de dólares americanos por ano dentro da
-                            União Europeia, bem como, em 28 países da EU, mais de 529.000 de empregos criar-se-ão como
-                            resultado do aumento exponencial do mercado das apps.</p>
-                    </mat-card-content>
-                </mat-card>
-            </div>
-
-        
-            <!-- <div class="container d-flex justify-content-between">
+                        <div class="container mb-5">
+                                <div class="row justify-content-center">
+                                    <div class="col-sm-12 ol-md-6">
+                                        <h3 class="display-5">
+                                            Complete seu perfil</h3>
+                                        <p class="text-left display-7">
+                                            Dentro do processo de desenvolvimento web nós temos espaço para todo mundo:
+                                            <br>- Se você precisa de um produto digital, está no lugar certo, temos uma equipe com profissionais qualificados de todas as áreas, para garantir que seu sonho se transforme em realidade com qualidade;
+                                            <br>- Se você é programador, esse ambiente foi feito para você, vai receber todo o apoio que necessita;
+                                            <br>- Se você tem conhecimento e habilidades em SCRUM, pode nos ajudar a manter nossos processos organizados;
+                                            <br>- Estudantes, Designers Gráficos, Animadores, Fotógrafos, Marketeiros, Vendedores, Analistas de Infraestrutura, Arquitetos, Intusiastas e Curiosos, nós precisamos de vocês também.<br></p>
+                                    
+                                                
+                                    </div>
+                                    <img src="../../../assets/images/background4.jpg" alt="scrum">
+                                </div>
+                                <mat-divider class="mb-4 mt-4"></mat-divider>
+                                <ul>
+                                    <li><strong>COMUNIDADE&nbsp;</strong>- Desenvolvimento é em comunidade, usamos o princípio do
+                                        cooperativismo para crescermos como uma comunidade comprometida e dedicada.</li>
+                                    <li><strong>AGILIDADE</strong> - Atualmente os métodos ágeis simplificam muito a vida de quem
+                                        contrata serviços de desenvolvimento.&nbsp;</li>
+                                    <li><strong>ECONOMIA </strong>- Acreditamos que em comunidade podemos transformar o
+                                        desenvolvimento de software algo acessível.&nbsp;</li>
+                                    <li><strong>FLEXIBILIDADE</strong> - Com a metodologia SCRUM, você acompanha cada passo do
+                                        desenvolvimento, podendo solicitar alterações sempre que precisar.</li>
+                                </ul>
+                            </div>
+                        <div class="container d-flex justify-content-between mb-3">
+            
+                            <mat-card class="card-50">
+            
+                                <img mat-card-image src="../../../assets/images/mbr-1080x696.jpg" alt="Quero Contratar Serviços">
+                                <mat-card-title>Quero Desenvolver um Produto</mat-card-title>
+                                <mat-card-content>
+                                    <p>Temos a tecnologia e a equipe que você precisa para colocar sua empresa na internet ou por
+                                        em prática aquele projeto que tanto sonhou. Consulte-nos!</p>
+                                </mat-card-content>
+                            </mat-card>
+            
+                            <mat-card class="card-50">
+            
+                                <img mat-card-image src="../../../assets/images/mbr-1-510x340.jpg" alt="Sou Desenvolver">
+                                <mat-card-title>Sou Desenvolvedor</mat-card-title>
+                                <mat-card-content>
+                                    <p>Nós queremos resolver o problema da distância entre quem está disposto a desenvolver com
+                                        quem precisa de desenvolvimento, utilizamos as melhores ferramentas de mercado. Faça parte!</p>
+                                </mat-card-content>
+                            </mat-card>
+            
+                        </div>
+            
+                <div class="container d-flex justify-content-between mt-5">
                 <mat-card class="card-25">
                     <img mat-card-image src="../../../assets/images/angular-510x510.png" alt="angular">
                     <mat-card-title class="display-4">Angular</mat-card-title>
@@ -221,7 +158,129 @@
                 </mat-card>
 
 
-            </div> -->
+            </div>
+            </div>
+            <div *ngIf="!user.isAutenticate()">
+                <div class="jumbotron container banner mt-5">
+                    <h1 class="display-1 mt-5 mb-3">
+                        <strong>COOPERDEV</strong></h1>
+                    <h3 class="lead align-right display-4 mb-3">
+                        Cooperativa de Serviços em Tecnologia e Desenvolvimento Web</h3>
+    
+                    <div class="align-right mb-3 mt-5"><a class="btn btn-md btn-primary display-4" href="register">
+                            Cadastre-se</a></div>
+                </div>
+                <div class="container mb-5">
+                        <div class="row justify-content-center">
+                            <div class="col-sm-12 ol-md-6">
+                                <h3 class="display-5">
+                                    NÓS SOMOS SCRUM</h3>
+                                <p class="text-left display-7">
+                                    O Papo com a gente aqui é bem simples:<br>- Agende uma demonstração do software em um mês a
+                                    partir de agora;
+                                    <br>- Como equipe, temos um mês para deixar o software pronto para uma demo, com
+                                    funcionalidades prontas, não simplesmente telas;
+                                    <br>- Na demonstração, obtemos seu feedback e usamos para guiar o seu próximo mês de
+                                    trabalho de desenvolvimento.<br></p>
+                                <div class="align-self-left"><a class="btn btn-sm btn-primary display-4" href="http://www.desenvolvimentoagil.com.br/scrum/"
+                                        target="_blank">Saiba Mais</a></div>
+                                        
+                            </div>
+                            <img src="../../../assets/images/agile101-what-is-scrum-437x144.png" width="540.1805555555555"
+                                height="178" alt="scrum">
+                        </div>
+                        <mat-divider class="mb-4 mt-4"></mat-divider>
+                        <ul>
+                            <li><strong>COMUNIDADE&nbsp;</strong>- Desenvolvimento é em comunidade, usamos o princípio do
+                                cooperativismo para crescermos como uma comunidade comprometida e dedicada.</li>
+                            <li><strong>AGILIDADE</strong> - Atualmente os métodos ágeis simplificam muito a vida de quem
+                                contrata serviços de desenvolvimento.&nbsp;</li>
+                            <li><strong>ECONOMIA </strong>- Acreditamos que em comunidade podemos transformar o
+                                desenvolvimento de software algo acessível.&nbsp;</li>
+                            <li><strong>FLEXIBILIDADE</strong> - Com a metodologia SCRUM, você acompanha cada passo do
+                                desenvolvimento, podendo solicitar alterações sempre que precisar.</li>
+                        </ul>
+                    </div>
+                <div class="container d-flex justify-content-between mb-3">
+    
+                    <mat-card class="card-50">
+    
+                        <img mat-card-image src="../../../assets/images/mbr-1080x696.jpg" alt="Quero Contratar Serviços">
+                        <mat-card-title>Quero Desenvolver um Produto</mat-card-title>
+                        <mat-card-content>
+                            <p>Temos a tecnologia e a equipe que você precisa para colocar sua empresa na internet ou por
+                                em prática aquele projeto que tanto sonhou. Consulte-nos!</p>
+                        </mat-card-content>
+                    </mat-card>
+    
+                    <mat-card class="card-50">
+    
+                        <img mat-card-image src="../../../assets/images/mbr-1-510x340.jpg" alt="Sou Desenvolver">
+                        <mat-card-title>Sou Desenvolvedor</mat-card-title>
+                        <mat-card-content>
+                            <p>Nós queremos resolver o problema da distância entre quem está disposto a desenvolver com
+                                quem precisa de desenvolvimento, utilizamos as melhores ferramentas de mercado. Faça parte!</p>
+                        </mat-card-content>
+                    </mat-card>
+    
+                </div>
+    
+    
+    
+                <div class="container d-flex justify-content-between mb-5 mt-5">
+                    <mat-card class="card-25">
+    
+                        <img mat-card-image src="../../../assets/images/mbr-510x339.jpg" alt="Landing Page">
+                        <mat-card-title>Landing Page</mat-card-title>
+                        <mat-card-content>
+                            <p>O conceito de Landing Page vai além da sua tradução literal (página de aterrissagem). No
+                                Marketing Digital, são páginas que possuem todos os elementos voltados à conversão do
+                                visitante em Lead, oportunidade ou cliente. Por esse motivo, Landing Pages costumam ter
+                                taxas de conversão maiores do que as de páginas comuns.</p>
+                        </mat-card-content>
+                    </mat-card>
+    
+                    <mat-card class="card-25">
+    
+                        <img mat-card-image src="../../../assets/images/mbr-510x340.jpg" alt="Landing Page">
+                        <mat-card-title>Loja Virtual</mat-card-title>
+                        <mat-card-content>
+                            <p>As vendas pela internet representam também uma grande oportunidade para as pequenas
+                                empresas, uma vez que as ferramentas de marketing on-line possibilitam que briguem de igual
+                                para igual com os grandes varejistas. Por isso, as lojas virtuais de pequeno porte são as
+                                que apresentam crescimento mais significativo, tirando cada vez mais quota de mercado dos
+                                grandes varejistas na internet.</p>
+                        </mat-card-content>
+                    </mat-card>
+                    <mat-card class="card-25">
+    
+                        <img mat-card-image src="../../../assets/images/mbr-3-510x363.jpg" alt="Landing Page">
+                        <mat-card-title>Sistema Web</mat-card-title>
+                        <mat-card-content>
+                            <p>O número de usuários da internet no Brasil atingiu cerca de 100 milhões, de acordo com a
+                                última pesquisa realizada pela Agência Brasil. Esse número mostra a importância das
+                                empresas garantirem uma boa presença online para impulsionar as vendas. E a principal forma
+                                de garantir essa presença é através de um site ou aplicativo.</p>
+                        </mat-card-content>
+                    </mat-card>
+                    <mat-card class="card-25">
+    
+                        <img mat-card-image src="../../../assets/images/mbr-1-510x340.jpg" alt="Landing Page">
+                        <mat-card-title>APP</mat-card-title>
+                        <mat-card-content>
+                            <p>Segundo uma pesquisa de mercado a cargo da Gartner, 102 mil milhões de apps serão instaladas
+                                durante o ano de 2013, 91% gratuitas, que ainda assim gerarão 26 biliões de Dólares
+                                Americanos. Conforme um relatório analítico estima-se que as receitas provenientes da
+                                distribuição de Apps ultrapassem os 10 mil milhões de dólares americanos por ano dentro da
+                                União Europeia, bem como, em 28 países da EU, mais de 529.000 de empregos criar-se-ão como
+                                resultado do aumento exponencial do mercado das apps.</p>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+
+        
+            
 
 
             <div class="container">

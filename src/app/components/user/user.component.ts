@@ -13,19 +13,23 @@ export class UserComponent implements OnInit {
   accountType: String;
   createdAt: Date;
   token: String;
-  accountTypeList: string[];
+  accountTypeList: string[] = [
+    'desenvolvedor',
+    'scrum',
+    'po',
+    'cliente',
+    'vendedor'
+  ];
 
   constructor() {
-    this.accountTypeList = [
-      'desenvolvedor',
-      'scrum',
-      'po',
-      'cliente',
-      'vendedor'
-    ];
-   }
+    if (localStorage.getItem('currentUser')) {
+      this.login(JSON.parse(localStorage.getItem('currentUser')));
+    }
+  }
+
 
   ngOnInit() {
+
   }
 
   login(data) {
@@ -34,9 +38,19 @@ export class UserComponent implements OnInit {
     this.email = data.user.email;
     this.createdAt = data.user.createdAt;
     this.token = this.token;
+    this.autenticate = true;
   }
   isAutenticate () {
     return this.autenticate;
   }
-
+  logoff() {
+      localStorage.removeItem('currentUser');
+      this.id = null;
+      this.name = null;
+      this.email = null;
+      this.createdAt = null;
+      this.token = null;
+      this.autenticate = false;
+      window.location.reload();
+    }
 }

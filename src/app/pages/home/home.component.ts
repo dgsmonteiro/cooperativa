@@ -24,8 +24,8 @@ export class HomeComponent implements OnInit {
     // formBuilder: FormBuilder,
     // private conversationService: ConversationService,
     // private alertas: MatSnackBar
-  ) {
-    this.user = new UserComponent();
+    ) {
+      this.user = new UserComponent();
     // this.formMessage = formBuilder.group({
     //   textBox: new FormControl('', {
     //     updateOn: 'change',
@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('user', this.user);
     // menssagem de boas vindas
     // this.waitingResponse = true;
     // this.conversationService.sendMsg('ola', this.chatbot.context).subscribe(

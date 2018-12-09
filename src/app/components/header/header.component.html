@@ -12,9 +12,10 @@
   <span class="titulo" [routerLink]="['/']"><img class="logo" src="../../../assets/images/dev-110x73.png" alt="">{{ title }}</span>
   <button mat-icon-button [matMenuTriggerFor]="appMenu">
     <mat-menu #appMenu="matMenu">
-      <button mat-menu-item class="mat-menu-item" [routerLink]="['/login']"><mat-icon aria-label="salvar icon">lock_open</mat-icon> Login</button>
-      <button mat-menu-item class="mat-menu-item" [routerLink]="['/register']"><mat-icon aria-label="salvar icon">how_to_reg</mat-icon> Registrar</button>
-      <button mat-menu-item class="mat-menu-item"><mat-icon aria-label="sair icon">help</mat-icon> Ajuda</button>
+      <button mat-menu-item class="mat-menu-item" [routerLink]="['/login']" *ngIf="!user.isAutenticate()"><mat-icon aria-label="salvar icon">lock_open</mat-icon> Login</button>
+      <button mat-menu-item class="mat-menu-item" [routerLink]="['/register']" *ngIf="!user.isAutenticate()"><mat-icon aria-label="salvar icon">how_to_reg</mat-icon> Registrar</button>
+      <button mat-menu-item class="mat-menu-item" *ngIf="user.isAutenticate()" (click)="user.logoff()"><mat-icon aria-label="salvar icon">lock_open</mat-icon> Logoff</button>
+      <button mat-menu-item class="mat-menu-item" [routerLink]="['/about']"><mat-icon aria-label="sair icon">help</mat-icon> Ajuda</button>
     </mat-menu>
     <mat-icon aria-label="Example icon-button with a heart icon">more_vert</mat-icon>
   </button>

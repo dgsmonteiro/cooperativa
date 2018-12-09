@@ -19,6 +19,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatInputModule} from '@angular/material/input';
+import { AboutComponent } from './about/about.component';
 
 
 
@@ -51,7 +52,8 @@ import {MatInputModule} from '@angular/material/input';
     Page404Component,
     LoginComponent,
     ForgotPasswordComponent,
-    RegisterComponent
+    RegisterComponent,
+    AboutComponent
   ]
 })
 export class PagesModule { }
