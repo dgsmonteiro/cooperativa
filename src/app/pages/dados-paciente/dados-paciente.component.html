@@ -1,0 +1,88 @@
+<app-menu>
+  <div class="main">
+    <mat-tab-group class="width100">
+        <mat-tab label="Dados Pessoais">
+            <form>
+                <mat-form-field *ngIf="user.isPaciente()" class="col-12">
+                  <input matInput placeholder="Nome" [value]="user.name" disabled>
+                </mat-form-field>
+              
+                <mat-form-field *ngIf="user.isPaciente()" class="col-12">
+                  <input matInput placeholder="E-mail" type="email" [value]="user.email" disabled>
+                </mat-form-field>
+              
+                <mat-form-field *ngIf="user.isPaciente()" class="col-12">
+                  <input matInput placeholder="CPF">
+                </mat-form-field>
+              
+                <mat-form-field *ngIf="user.isPaciente()" class="col-12">
+                  <input matInput placeholder="Endereço">
+                </mat-form-field>
+              
+                <mat-form-field *ngIf="user.isPaciente()" class="col-6">
+                  <input matInput type="tel" placeholder="Telefone Residencial">
+                </mat-form-field>
+              
+                <mat-form-field *ngIf="user.isPaciente()" class="col-6">
+                  <input matInput type="tel" placeholder="Telefone Celular">
+                </mat-form-field>
+              
+              
+              </form>
+        </mat-tab>
+        <mat-tab label="Dados Antropometricos">
+            <form>
+                <mat-form-field *ngIf="user.isPaciente()" class="width100">
+                  <input matInput placeholder="Nome" [value]="user.name">
+                </mat-form-field>
+              
+                <mat-form-field *ngIf="user.isPaciente()" class="width100">
+                  <input matInput placeholder="Altura"  value="Sushi">
+                </mat-form-field>
+              
+                <mat-form-field *ngIf="user.isPaciente()" class="width100">
+                  <input matInput placeholder="Peso" value="Sushi">
+                </mat-form-field>
+              
+              
+              </form>
+        </mat-tab>
+        <mat-tab label="Dados Clinicos">
+            <form>
+                <mat-form-field *ngIf="user.isPaciente()" class="width100">
+                  <input matInput placeholder="Nome" [value]="user.name">
+                </mat-form-field>
+              
+                <mat-form-field *ngIf="user.isPaciente()" class="width100">
+                  <input matInput placeholder="Altura"  value="Sushi">
+                </mat-form-field>
+              
+                <mat-form-field *ngIf="user.isPaciente()" class="width100">
+                  <input matInput placeholder="Peso" value="Sushi">
+                </mat-form-field>
+              
+              </form>
+        </mat-tab>
+        <mat-tab label="Dados Financeiros">
+            <form>
+                <mat-form-field *ngIf="user.isPaciente()" class="width100">
+                  <input matInput placeholder="Nome" [value]="user.name">
+                </mat-form-field>
+              
+                <mat-form-field *ngIf="user.isPaciente()" class="width100">
+                  <input matInput placeholder="Altura"  value="Sushi">
+                </mat-form-field>
+              
+                <mat-form-field *ngIf="user.isPaciente()" class="width100">
+                  <input matInput placeholder="Peso" value="Sushi">
+                </mat-form-field>
+              
+              
+              
+              </form>
+        </mat-tab>
+    </mat-tab-group>
+      
+        
+  </div>
+</app-menu>

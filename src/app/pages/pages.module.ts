@@ -20,9 +20,10 @@ import {MatCardModule} from '@angular/material/card';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatInputModule} from '@angular/material/input';
 import { AboutComponent } from './about/about.component';
-
-
-
+import { AgendaComponent } from './agenda/agenda.component';
+import { DadosPacienteComponent } from './dados-paciente/dados-paciente.component';
+import { MenuModule } from '../components/menu/menu.module';
+import { CalendarMonthModule, CalendarCommonModule } from 'angular-calendar';
 
 
 
@@ -31,8 +32,9 @@ import { AboutComponent } from './about/about.component';
 @NgModule({
   imports: [
     CommonModule,
-    HeaderModule,
     FooterModule,
+    HeaderModule,
+    MenuModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
@@ -45,7 +47,9 @@ import { AboutComponent } from './about/about.component';
     MatListModule,
     MatCardModule,
     MatDividerModule,
-    MatInputModule
+    MatInputModule,
+    CalendarCommonModule,
+    CalendarMonthModule
   ],
   declarations: [
     HomeComponent,
@@ -53,7 +57,9 @@ import { AboutComponent } from './about/about.component';
     LoginComponent,
     ForgotPasswordComponent,
     RegisterComponent,
-    AboutComponent
+    AboutComponent,
+    AgendaComponent,
+    DadosPacienteComponent
   ]
 })
 export class PagesModule { }

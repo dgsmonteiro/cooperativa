@@ -21,7 +21,6 @@
   }
 
   .main {
-    top: 60px;
     overflow: hidden;
     position: relative;
     display: flex;
@@ -29,8 +28,6 @@
     
   }
   .main::before{
-    width: 100vw;
-    height: 100vh;
     position: fixed;
     content: "";
     z-index: -10;
@@ -112,9 +109,13 @@
     -moz-background-size: 100% 100%;
     -o-background-size: 100% 100%;
     background-size: 100% 100%;
-    color: white;
-    text-align: end;
+    
   }
   .card-img{
     height: 230px;
+  }
+  .banner {
+    color: #7FFFD4;
+    text-align: end;
+    text-shadow: 5px 5px 10px #000;
   }

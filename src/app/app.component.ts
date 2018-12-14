@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'COOPERDEV';
+  title = 'TATIANE NUTRICIONISTA';
   user: Object = {
     autenticate: false,
     id: Number,

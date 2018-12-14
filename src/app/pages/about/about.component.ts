@@ -10,10 +10,9 @@ export class AboutComponent implements OnInit {
 
   user: UserComponent;
   userMenu: string[] = ['Login', 'Ajuda'];
-  userLinks: string[] = ['Conta', 'Projetos', 'Recursos', 'Metas', 'Desafios'];
+  userLinks: string[] = ['Conta', 'Projetos', 'Recursos', 'Metas', 'Desafios', 'Resultados'];
 
   constructor() {
-    this.user = new UserComponent();
 
   }
 

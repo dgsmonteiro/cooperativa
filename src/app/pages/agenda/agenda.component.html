@@ -1,0 +1,118 @@
+<app-menu>
+  <div *ngIf="user.isPaciente()" class="main">
+      <form>
+          <mat-form-field *ngIf="user.isPaciente()" class="col-12">
+            <input matInput type="date" placeholder="Data" [value]="user.name">
+          </mat-form-field>
+        
+          <mat-form-field *ngIf="user.isPaciente()" class="col-12">
+            <input matInput type="time" placeholder="Hora"  [value]="user.email">
+          </mat-form-field>
+        
+          <mat-form-field *ngIf="user.isPaciente()" class="col-12">
+            <input matInput placeholder="Peso" value="Sushi">
+          </mat-form-field>
+        
+        
+        </form>
+  </div>
+    <div *ngIf="user.isNutri()" class="main">
+        
+            <mwl-calendar-month-view
+              [viewDate]="viewDate"
+              [events]="events"
+              [refresh]="refresh"
+              [activeDayIsOpen]="activeDayIsOpen"
+              (dayClicked)="dayClicked($event.day)"
+              (eventClicked)="handleEvent('Clicked', $event.event)"
+              (eventTimesChanged)="eventTimesChanged($event)">
+            </mwl-calendar-month-view>
+            
+          
+          <br><br><br>
+          
+          <!-- <h3>
+            Edit events
+            <button
+              class="btn btn-primary pull-right"
+              (click)="addEvent()">
+              Add new
+            </button>
+            <div class="clearfix"></div>
+          </h3> -->
+          
+          <!-- <table class="table table-bordered">
+          
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Primary color</th>
+                <th>Secondary color</th>
+                <th>Starts at</th>
+                <th>Ends at</th>
+                <th>Remove</th>
+              </tr>
+            </thead>
+          
+            <tbody>
+              <tr *ngFor="let event of events; let index = index">
+                <td>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="event.title"
+                    (keyup)="refresh.next()">
+                </td>
+                <td>
+                  <input
+                    type="color"
+                    [(ngModel)]="event.color.primary"
+                    (change)="refresh.next()">
+                </td>
+                <td>
+                  <input
+                    type="color"
+                    [(ngModel)]="event.color.secondary"
+                    (change)="refresh.next()">
+                </td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    mwlFlatpickr
+                    [(ngModel)]="event.start"
+                    (ngModelChange)="refresh.next()"
+                    [altInput]="true"
+                    [convertModelValue]="true"
+                    [enableTime]="true"
+                    dateFormat="Y-m-dTH:i"
+                    altFormat="F j, Y H:i"
+                    placeholder="Not set">
+                </td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    mwlFlatpickr
+                    [(ngModel)]="event.end"
+                    (ngModelChange)="refresh.next()"
+                    [altInput]="true"
+                    [convertModelValue]="true"
+                    [enableTime]="true"
+                    dateFormat="Y-m-dTH:i"
+                    altFormat="F j, Y H:i"
+                    placeholder="Not set">
+                </td>
+                <td>
+                  <button
+                    class="btn btn-danger"
+                    (click)="events.splice(index, 1); refresh.next()">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          
+          </table> -->
+    </div>
+</app-menu>

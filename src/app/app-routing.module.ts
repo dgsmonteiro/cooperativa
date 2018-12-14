@@ -7,10 +7,14 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { RegisterComponent } from './pages/register/register.component';
 import { AboutComponent } from './pages/about/about.component';
 import { UserComponent } from './components/user/user.component';
+import { AgendaComponent } from './pages/agenda/agenda.component';
+import { DadosPacienteComponent } from './pages/dados-paciente/dados-paciente.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'agenda', component: AgendaComponent},
+  {path: 'dados-paciente', component: DadosPacienteComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'about', component: AboutComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},

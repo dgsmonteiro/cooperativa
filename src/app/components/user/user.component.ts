@@ -10,16 +10,10 @@ export class UserComponent implements OnInit {
   id: number;
   name: String;
   email: String;
-  accountType: String;
+  accountType: number;
   createdAt: Date;
   token: String;
-  accountTypeList: string[] = [
-    'desenvolvedor',
-    'scrum',
-    'po',
-    'cliente',
-    'vendedor'
-  ];
+
 
   constructor() {
     if (localStorage.getItem('currentUser')) {
@@ -36,6 +30,7 @@ export class UserComponent implements OnInit {
     this.id = data.user._id;
     this.name = data.user.name;
     this.email = data.user.email;
+    this.accountType = data.user.accountType;
     this.createdAt = data.user.createdAt;
     this.token = this.token;
     this.autenticate = true;
@@ -43,14 +38,29 @@ export class UserComponent implements OnInit {
   isAutenticate () {
     return this.autenticate;
   }
+  isPaciente() {
+    if (this.accountType === 1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  isNutri() {
+    if (this.accountType === 2) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   logoff() {
       localStorage.removeItem('currentUser');
       this.id = null;
       this.name = null;
       this.email = null;
       this.createdAt = null;
+      this.accountType = null;
       this.token = null;
       this.autenticate = false;
-      window.location.reload();
+      window.location.href = '/';
     }
 }

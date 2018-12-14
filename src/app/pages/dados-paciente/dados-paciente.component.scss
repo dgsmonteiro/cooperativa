@@ -17,9 +17,31 @@ mat-menu:active {
 }
 
 form {
+  margin: 15%;
+  margin-top: 5%;
+  align-items: center;
+
+}
+.width100{
   width: 100%;
 }
 
+.main {
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  
+}
+.main::before{
+  position: fixed;
+  content: "";
+  z-index: -10;
+  filter: contrast(130%);
+//   background-image: url("../../../assets/fundo.png");
+  background-color: #e9ecef;
+  background-repeat: repeat;
+}
 
 input.texto-invalido {
   border-color: #d11111;
@@ -93,10 +115,13 @@ mat-drawer {
   -moz-background-size: 100% 100%;
   -o-background-size: 100% 100%;
   background-size: 100% 100%;
-  color: #7FFFD4;
-  text-align: end;
-  text-shadow: 4px 4px 8px #000000;
+  
 }
 .card-img{
   height: 230px;
+}
+.banner {
+  color: #7FFFD4;
+  text-align: end;
+  text-shadow: 5px 5px 10px #000;
 }

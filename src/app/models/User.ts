@@ -3,6 +3,6 @@ export class User {
     email: string;
     password: string;
     name: string;
-    accountType: string[];
+    accountType: number;
     token: string;
 }

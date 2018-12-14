@@ -1,15 +1,15 @@
-<app-header title="COOPERDEV">
+<app-header title="TATIANE">
   <button mat-icon-button (click)="drawer.toggle()" *ngIf="user.isAutenticate()"><i class="material-icons md-dark">person</i></button>
 </app-header>
 <mat-drawer-container [hasBackdrop]="true">
   <mat-drawer #drawer [mode]="push">
       <mat-tab-group>
-          <mat-tab label="Cliente">
+          <mat-tab label="Paciente">
               <mat-nav-list>
                   <a mat-list-item *ngFor="let link of userLinks"> {{ link }} </a>
               </mat-nav-list>
           </mat-tab>
-          <mat-tab label="Cooperado">
+          <mat-tab label="Nutricionista">
               <h1>Some more tab content</h1>
               <p>...</p>
           </mat-tab>
@@ -23,7 +23,7 @@
           <div *ngIf="user.isAutenticate()">
                   <div class="jumbotron container banner mt-5">
                           <h1 class="display-1 mt-3 mb-3">
-                              <strong>COOPERDEV</strong></h1>
+                              <strong>Tatiane Ribeiro</strong></h1>
                           <h3 class="lead align-right display-4 mb-5">
                               Cooperativa de Serviços em Tecnologia e Desenvolvimento Web</h3>
           
@@ -218,7 +218,7 @@
           <div class="container">
               <div class="col-sm-12 align-center">
                   <p class="display-7">
-                      © Copyright 2018 COOPERDEV - All Rights Reserved
+                      © Copyright 2018 TATIANE RIBEIRO - All Rights Reserved
                   </p>
               </div>
           </div>

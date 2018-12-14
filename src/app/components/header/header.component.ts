@@ -9,9 +9,9 @@ import { UserComponent } from '../user/user.component';
 export class HeaderComponent implements OnInit {
 
   @Input() title = '';
-  user: UserComponent = new UserComponent();
-
+  user: UserComponent;
   constructor() {
+    this.user = new UserComponent;
    }
 
   ngOnInit() {

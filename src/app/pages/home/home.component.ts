@@ -16,16 +16,14 @@ import {
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  user: UserComponent;
-  userMenu: string[] = ['Login', 'Ajuda'];
-  userLinks: string[] = ['Conta', 'Projetos', 'Recursos', 'Metas', 'Desafios'];
+  user: UserComponent = new UserComponent();
 
   constructor(
     // formBuilder: FormBuilder,
     // private conversationService: ConversationService,
     // private alertas: MatSnackBar
     ) {
-      this.user = new UserComponent();
+
     // this.formMessage = formBuilder.group({
     //   textBox: new FormControl('', {
     //     updateOn: 'change',
@@ -35,7 +33,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('user', this.user);
     // menssagem de boas vindas
     // this.waitingResponse = true;
     // this.conversationService.sendMsg('ola', this.chatbot.context).subscribe(
