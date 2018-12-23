@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 
 
@@ -39,16 +41,12 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     UserComponent
   ],
   imports: [
+    NgbModule,
     HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    PagesModule,
-    CalendarModule.forRoot({
-      provide: DateAdapter,
-      useFactory: adapterFactory
-    })
-
+    PagesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

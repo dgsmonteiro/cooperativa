@@ -17,8 +17,63 @@
         </form>
   </div>
     <div *ngIf="user.isNutri()" class="main">
-        
+        <div class="row text-center mt-5">
+            <div class="col-md-4">
+              <div class="btn-group">
+                <div
+                  class="btn btn-primary"
+                  mwlCalendarPreviousView
+                  [view]="view"
+                  [(viewDate)]="viewDate"
+                  (viewDateChange)="activeDayIsOpen = false">
+                  Anterior
+                </div>
+                <div
+                  class="btn btn-outline-secondary"
+                  mwlCalendarToday
+                  [(viewDate)]="viewDate">
+                  Hoje
+                </div>
+                <div
+                  class="btn btn-primary"
+                  mwlCalendarNextView
+                  [view]="view"
+                  [(viewDate)]="viewDate"
+                  (viewDateChange)="activeDayIsOpen = false">
+                  Próximo
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'pt' }}</h3>
+            </div>
+            <div class="col-md-4">
+              <div class="btn-group">
+                <div
+                  class="btn btn-primary"
+                  (click)="view = CalendarView.Month"
+                  [class.active]="view === CalendarView.Month">
+                  Mês
+                </div>
+                <div
+                  class="btn btn-primary"
+                  (click)="view = CalendarView.Week"
+                  [class.active]="view === CalendarView.Week">
+                  Semana
+                </div>
+                <div
+                  class="btn btn-primary"
+                  (click)="view = CalendarView.Day"
+                  [class.active]="view === CalendarView.Day">
+                  Dia
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div [ngSwitch]="view">
             <mwl-calendar-month-view
+              *ngSwitchCase="CalendarView.Month"
               [viewDate]="viewDate"
               [events]="events"
               [refresh]="refresh"
@@ -27,25 +82,41 @@
               (eventClicked)="handleEvent('Clicked', $event.event)"
               (eventTimesChanged)="eventTimesChanged($event)">
             </mwl-calendar-month-view>
-            
+            <mwl-calendar-week-view
+              *ngSwitchCase="CalendarView.Week"
+              [viewDate]="viewDate"
+              [events]="events"
+              [refresh]="refresh"
+              (eventClicked)="handleEvent('Clicked', $event.event)"
+              (eventTimesChanged)="eventTimesChanged($event)">
+            </mwl-calendar-week-view>
+            <mwl-calendar-day-view
+              *ngSwitchCase="CalendarView.Day"
+              [viewDate]="viewDate"
+              [events]="events"
+              [refresh]="refresh"
+              (eventClicked)="handleEvent('Clicked', $event.event)"
+              (eventTimesChanged)="eventTimesChanged($event)">
+            </mwl-calendar-day-view>
+          </div>
           
           <br><br><br>
           
-          <!-- <h3>
-            Edit events
+          <h3>
+            Editar Eventos
             <button
               class="btn btn-primary pull-right"
               (click)="addEvent()">
-              Add new
+              Adicionar Novo
             </button>
             <div class="clearfix"></div>
-          </h3> -->
+          </h3>
           
-          <!-- <table class="table table-bordered">
+          <table class="table table-bordered">
           
             <thead>
               <tr>
-                <th>Title</th>
+                <th>Título</th>
                 <th>Primary color</th>
                 <th>Secondary color</th>
                 <th>Starts at</th>
@@ -107,12 +178,12 @@
                   <button
                     class="btn btn-danger"
                     (click)="events.splice(index, 1); refresh.next()">
-                    Delete
+                    Apagar
                   </button>
                 </td>
               </tr>
             </tbody>
           
-          </table> -->
+          </table>
     </div>
 </app-menu>
