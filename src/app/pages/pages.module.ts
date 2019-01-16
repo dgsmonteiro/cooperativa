@@ -19,18 +19,23 @@ import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatInputModule} from '@angular/material/input';
+import {MatTableModule} from '@angular/material/table';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import { AboutComponent } from './about/about.component';
 import { AgendaComponent } from './agenda/agenda.component';
+import { AgendamentoComponent } from './agendamento/agendamento.component';
 import { DadosPacienteComponent } from './dados-paciente/dados-paciente.component';
 import { MenuModule } from '../components/menu/menu.module';
 import { CalendarModule, CalendarCommonModule, DateAdapter} from 'angular-calendar';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { registerLocaleData } from '@angular/common';
-import { NgbModalModule, NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 import ptBr from '@angular/common/locales/pt';
+import { MatNativeDateModule } from '@angular/material';
 registerLocaleData(ptBr);
 
 
@@ -38,7 +43,7 @@ registerLocaleData(ptBr);
 @NgModule({
   imports: [
     NgbModalModule,
-    // NgbTypeahead,
+    NgbTypeaheadModule,
     FormsModule,
     ReactiveFormsModule,
     MatSidenavModule,
@@ -51,6 +56,11 @@ registerLocaleData(ptBr);
     MatCardModule,
     MatDividerModule,
     MatInputModule,
+    MatTableModule,
+    MatToolbarModule,
+    MatDatepickerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     CalendarCommonModule,
     CalendarModule,
     FlatpickrModule.forRoot({
@@ -73,8 +83,9 @@ registerLocaleData(ptBr);
     RegisterComponent,
     AboutComponent,
     AgendaComponent,
-    DadosPacienteComponent
+    DadosPacienteComponent,
+    AgendamentoComponent
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'pt' }]
+  providers: [{ provide: LOCALE_ID, useValue: 'pt' }, MatDatepickerModule]
 })
 export class PagesModule { }

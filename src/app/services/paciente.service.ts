@@ -26,5 +26,16 @@ export class PacienteService {
             return pacientes;
         }));
 }
+  selecionar(id) {
+    return this.http.get<any>(`${environment.apiUrl}/pacientes/selecionar`)
+        .pipe(map(paciente => {
+            // login successful if there's a jwt token in the response
+            if (paciente) {
+                console.log(JSON.stringify(paciente));
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+            }
+            return paciente;
+        }));
+}
 
 }

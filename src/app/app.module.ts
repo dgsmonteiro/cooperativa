@@ -21,8 +21,6 @@ import { PagesModule } from './pages/pages.module';
 import { AppRoutingModule } from './app-routing.module';
 import { UserComponent } from './components/user/user.component';
 import { HttpClientModule } from '@angular/common/http';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 
 @NgModule({

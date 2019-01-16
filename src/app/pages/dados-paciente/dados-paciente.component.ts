@@ -5,6 +5,12 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { PacienteService } from '../../services/paciente.service';
 import { HttpResponse } from '@angular/common/http';
 
+export interface PeriodicElement {
+  date: string;
+  pesoAI: string;
+  porcentagemAdequacao: string;
+  classificacao: string;
+}
 
 @Component({
   selector: 'app-dados-paciente',
@@ -12,9 +18,28 @@ import { HttpResponse } from '@angular/common/http';
   styleUrls: ['./dados-paciente.component.scss']
 })
 export class DadosPacienteComponent implements OnInit {
-  paciente: UserComponent = new UserComponent();
+  user: UserComponent = new UserComponent;
+  busca: String;
+  paciente: HttpResponse<Object> = null;
   pacientes: HttpResponse<UserComponent>[];
   service: PacienteService;
+  anamnese: {};
+  classificacaoValores: PeriodicElement[] = [
+    {date: '01/01/2019', pesoAI: '20 Kg', porcentagemAdequacao: '30%', classificacao: 'Alta'},
+    {date: '01/01/2019', pesoAI: '20 Kg', porcentagemAdequacao: '30%', classificacao: 'Alta'},
+    {date: '01/01/2019', pesoAI: '20 Kg', porcentagemAdequacao: '30%', classificacao: 'Alta'},
+    {date: '01/01/2019', pesoAI: '20 Kg', porcentagemAdequacao: '30%', classificacao: 'Alta'},
+    {date: '01/01/2019', pesoAI: '20 Kg', porcentagemAdequacao: '30%', classificacao: 'Alta'},
+    {date: '01/01/2019', pesoAI: '20 Kg', porcentagemAdequacao: '30%', classificacao: 'Alta'},
+    {date: '01/01/2019', pesoAI: '20 Kg', porcentagemAdequacao: '30%', classificacao: 'Alta'},
+    {date: '01/01/2019', pesoAI: '20 Kg', porcentagemAdequacao: '30%', classificacao: 'Alta'},
+    {date: '01/01/2019', pesoAI: '20 Kg', porcentagemAdequacao: '30%', classificacao: 'Alta'},
+    {date: '01/01/2019', pesoAI: '20 Kg', porcentagemAdequacao: '30%', classificacao: 'Alta'},
+    {date: '01/01/2019', pesoAI: '20 Kg', porcentagemAdequacao: '30%', classificacao: 'Alta'},
+    {date: '01/01/2019', pesoAI: '20 Kg', porcentagemAdequacao: '30%', classificacao: 'Alta'}
+  ];
+  displayedColumns: string[] = ['date', 'pesoAI', 'porcentagemAdequacao', 'classificacao'];
+
 
   constructor(private pacienteService: PacienteService) {
   }
@@ -34,6 +59,15 @@ export class DadosPacienteComponent implements OnInit {
   //     map(term => term.length < 2 ? []
   //       : this.pacientes.name.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
   //   )
+
+  selecionaPaciente (paciente: UserComponent) {
+    this.pacienteService.selecionar(paciente.id)
+    .subscribe((resposta: HttpResponse<Object>) => {
+      JSON.stringify(resposta);
+      this.paciente = resposta;
+    });
+
+  }
 
 
 }
