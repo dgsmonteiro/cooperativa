@@ -14,12 +14,37 @@
     </mat-form-field>
 
     <mat-form-field class="col-6">
-      <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="Data">
+      <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" [matDatepickerFilter]="diasDisponiveis" placeholder="Data">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-  </div>
 
+    <mat-form-field class="col-6">
+      <mat-select placeholder="Horários" [(ngModel)]="horarioSelecionado" name="horario" [disabled]="horarios.length <= 0">
+        <mat-option *ngFor="let horario of horarios" [value]="horario.value">
+          {{horario.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="col-12 mb-2">
+      <textarea matInput placeholder="Observação"></textarea>
+    </mat-form-field>
+
+
+    <mat-divider></mat-divider>
+
+
+    <mat-form-field class="col-6 mt-2">
+      <input matInput placeholder="Valor" type="number" disabled [(ngModel)]="valorConsulta">
+      <span matPrefix>R$&nbsp;</span>
+      <span matSuffix>.00</span>
+    </mat-form-field>
+
+    <button class="col-5" mat-raised-button color="primary">Agendar</button>
+
+
+  </div>
 </div>
 
 
