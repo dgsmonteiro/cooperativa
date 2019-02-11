@@ -1,16 +1,15 @@
 <app-menu>
-    <div class="main">
+    <div class="main background">
         <div *ngIf="user.isAutenticate()">
                 <div class="jumbotron container banner mt-5">
 
         
-                </div>
+                
 
-                    <div class="container mb-5">
-                            <div class="row justify-content-center">
+                    <div class="container">
+                            <div class="row">
                                 <div class="col-sm-12 ol-md-6">
-                                    <h3 class="display-5">
-                                        Seja Bem Vindo</h3>
+                                    <h3 class="text-center mb-3">Seja Bem Vindo</h3>
                                     <p class="text-left display-7">
                                         Esse é o nosso espaço, aqui você poderá encontrar mais detalhes sobre seu acompanhamento nutricional:
                                         <br>- Agendamento de Consultas;
@@ -57,7 +56,7 @@
                         </mat-card>
         
                     </div> -->
-        
+        </div>
             <!-- <div class="container d-flex justify-content-between mt-5">
             <mat-card class="card-25">
                 <img mat-card-image src="../../../assets/images/angular-510x510.png" alt="angular">
@@ -141,8 +140,16 @@
             <div class="jumbotron container banner mt-5">
 
 
-                <div class="align-right mb-3 mt-5"><a class="btn btn-md btn-primary display-4" href="register">
-                        Cadastre-se</a></div>
+                <h3 class="text-center mb-3">Seja Bem Vindo</h3>
+
+            
+            <p class="text-left display-7">
+                Esse é o nosso espaço, aqui você poderá encontrar mais detalhes sobre seu acompanhamento nutricional:
+                <br>- Agendamento de Consultas;
+                <br>- Acompanhamento de Medidas;
+                <br>- Metas;
+                <br>- Desafios.<br></p>
+                <div class="align-right mb-3 mt-1"><a mat-raised-button color="primary" href="agendamento">Agende uma Consulta</a></div>
             </div>
             <!-- <div class="container mb-5">
                     <div class="row justify-content-center">
@@ -257,14 +264,6 @@
         
 
 
-        <div class="container">
-            <div class="col-sm-12 align-center">
-                <p class="display-7">
-                    © Copyright 2018 TATIANE RIBEIRO - All Rights Reserved
-                </p>
-            </div>
-        </div>
-
 
         <app-footer>
             <!-- <form [formGroup]="formMessage" autocomplete="off">
@@ -283,6 +282,15 @@
     </span>
   </div>
 </form> -->
+
+<div class="container">
+    <div class="col-sm-12 align-center">
+        <p class="display-7">
+            © Copyright 2018 TATIANE RIBEIRO - All Rights Reserved
+        </p>
+    </div>
+</div>
+
         </app-footer>
     </div>
 </app-menu>

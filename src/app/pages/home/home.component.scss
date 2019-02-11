@@ -98,23 +98,35 @@
     top: 60px;
     position: fixed;
   }
-  .banner{
-    background-image: url(../../../assets/images/fundo.jpg);
-    height: 600px;
-    background-position: center;
+  .background{
+    background-image: url(../../../assets/images/legumes.jpg);
+    background-attachment: fixed;
+    background-position: top;
     background-repeat: no-repeat;
-    background-size: contain;
-    -webkit-background-size: 100% 100%;
-    -moz-background-size: 100% 100%;
-    -o-background-size: 100% 100%;
-    background-size: 100% 100%;
-    
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 800px;
+    @media only screen and (min-width: 1200px) {
+      /* styles for wide screens */    
+      height: 800px; 
+    } 
   }
   .card-img{
     height: 230px;
   }
   .banner {
-    color: #7FFFD4;
+    color: green;
     text-align: end;
-    text-shadow: 5px 5px 10px #000;
+    text-shadow: 3px 3px 5px lightgreen;
+    a {
+      color: white;
+    }
   }
+  .jumbotron {
+    background-color: white;
+    width: 85%;
+  }
+  

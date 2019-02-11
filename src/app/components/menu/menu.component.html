@@ -2,7 +2,7 @@
   <button mat-icon-button (click)="drawer.toggle()" *ngIf="user.isAutenticate()"><i class="material-icons md-dark">person</i></button>
 </app-header>
 <mat-drawer-container [hasBackdrop]="true">
-  <mat-drawer #drawer [mode]="push">
+  <mat-drawer #drawer>
       <mat-tab-group>
           <mat-tab *ngIf="user.isPaciente()" label="Paciente: {{user.name}}">
               <mat-nav-list>

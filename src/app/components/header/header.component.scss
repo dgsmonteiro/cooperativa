@@ -2,6 +2,7 @@
     z-index: 10;
   }
   
+  
   @media screen and (max-width: 768px) {
     mat-toolbar > span.titulo {
       font-size: 0.8em;
@@ -28,6 +29,11 @@
   }
   
   mat-toolbar {
+    color: green;
+    position: sticky;
+    position: -webkit-sticky; /* For macOS/iOS Safari */
+    top: 0; /* Sets the sticky toolbar to be on top */
+    z-index: 1000; 
     display: flex;
     justify-content: space-between;
     .logo {
@@ -41,8 +47,12 @@
     }
   }
   .mat-menu-item {
+    color: green;
     display: flex;
     justify-content: start;
     align-items: center
+  }
+  .mat-icon{
+    color: green;
   }
   
