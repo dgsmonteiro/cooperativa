@@ -16,9 +16,8 @@ export class PacienteService {
    }
 
   listar() {
-    const user = JSON.parse(localStorage.getItem('currentUser'));
-    const headers: HttpHeaders = new HttpHeaders().set('Authorization', `Bearer ${user.token}`);
-    return this.http.get<any>(`${environment.apiUrl}/pacientes`, {headers})
+
+    return this.http.get<any>(`${environment.apiUrl}/pacientes`)
         .pipe(map(pacientes => {
             // login successful if there's a jwt token in the response
             if (pacientes) {

@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 
@@ -21,6 +22,7 @@ import { PagesModule } from './pages/pages.module';
 import { AppRoutingModule } from './app-routing.module';
 import { UserComponent } from './components/user/user.component';
 import { HttpClientModule } from '@angular/common/http';
+import { JwtInterceptor } from './services/interceptors/jwt.interceptor';
 
 
 @NgModule({
@@ -46,7 +48,13 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     PagesModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true}
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
