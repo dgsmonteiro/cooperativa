@@ -9,6 +9,7 @@ export class UserComponent implements OnInit {
   autenticate: boolean;
   id: number;
   name: String;
+  cpf: number;
   email: String;
   accountType: number;
   createdAt: Date;
@@ -29,6 +30,7 @@ export class UserComponent implements OnInit {
   login(data) {
     this.id = data.user._id;
     this.name = data.user.name;
+    this.cpf = data.user.cpf;
     this.email = data.user.email;
     this.accountType = data.user.accountType;
     this.createdAt = data.user.createdAt;
@@ -56,6 +58,7 @@ export class UserComponent implements OnInit {
       localStorage.removeItem('currentUser');
       this.id = null;
       this.name = null;
+      this.cpf = null;
       this.email = null;
       this.createdAt = null;
       this.accountType = null;

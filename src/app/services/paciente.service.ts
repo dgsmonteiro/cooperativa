@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders,  } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -12,10 +12,13 @@ import { environment } from 'src/environments/environment';
 })
 export class PacienteService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+   }
 
   listar() {
-    return this.http.get<any>(`${environment.apiUrl}/pacientes`)
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    const headers: HttpHeaders = new HttpHeaders().set('Authorization', `Bearer ${user.token}`);
+    return this.http.get<any>(`${environment.apiUrl}/pacientes`, {headers})
         .pipe(map(pacientes => {
             // login successful if there's a jwt token in the response
             if (pacientes) {

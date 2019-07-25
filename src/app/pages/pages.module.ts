@@ -32,10 +32,13 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { registerLocaleData } from '@angular/common';
 import { NgbModalModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { AgmCoreModule } from '@agm/core';
 
 
 import ptBr from '@angular/common/locales/pt';
-import { MatNativeDateModule } from '@angular/material';
+import { MatNativeDateModule, MatStepperModule, MatCheckboxModule } from '@angular/material';
+import { AbrirAgendaComponent } from './abrir-agenda/abrir-agenda.component';
+
 registerLocaleData(ptBr);
 
 
@@ -59,12 +62,12 @@ registerLocaleData(ptBr);
     MatTableModule,
     MatToolbarModule,
     MatDatepickerModule,
-    MatDatepickerModule,
     MatNativeDateModule,
+    MatStepperModule,
+    MatCheckboxModule,
     CalendarCommonModule,
     CalendarModule,
-    FlatpickrModule.forRoot({
-    }),
+    FlatpickrModule.forRoot(),
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
@@ -74,6 +77,7 @@ registerLocaleData(ptBr);
     HeaderModule,
     MenuModule,
     AppRoutingModule,
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyDfPbNnfE5ktwmYBMuI_S7jH04khiAQomM'})
   ],
   declarations: [
     HomeComponent,
@@ -84,7 +88,8 @@ registerLocaleData(ptBr);
     AboutComponent,
     AgendaComponent,
     DadosPacienteComponent,
-    AgendamentoComponent
+    AgendamentoComponent,
+    AbrirAgendaComponent
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'pt' }, MatDatepickerModule]
 })

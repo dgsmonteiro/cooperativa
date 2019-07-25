@@ -8,15 +8,15 @@
         <mat-tab label="Dados Pessoais">
             <form>
                 <mat-form-field *ngIf="true" class="col-12">
-                  <input matInput placeholder="Nome" [value]="">
+                  <input matInput placeholder="Nome" [value]="user.name">
                 </mat-form-field>
               
                 <mat-form-field *ngIf="true" class="col-12">
-                  <input matInput placeholder="E-mail" type="email" [value]="">
+                  <input matInput placeholder="E-mail" type="email" [value]="user.email">
                 </mat-form-field>
               
                 <mat-form-field *ngIf="true" class="col-12">
-                  <input matInput placeholder="CPF" [value]="">
+                  <input matInput placeholder="CPF" [value]="user.cpf">
                 </mat-form-field>
               
                 <mat-form-field *ngIf="true" class="col-12">

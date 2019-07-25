@@ -49,6 +49,7 @@ export class DadosPacienteComponent implements OnInit {
     .subscribe((resposta: HttpResponse<UserComponent>[]) => {
       JSON.stringify(resposta);
       this.pacientes = resposta;
+      console.log(resposta);
     });
   }
 

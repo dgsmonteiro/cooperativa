@@ -6,10 +6,16 @@
     <div class="login">   
       <h1 class="text-center">Seja Bem-vindo!</h1>
     
-      <form [formGroup]="formRegister" (submit)="login()">
+      <form [formGroup]="formRegister" (submit)="register()">
         <mat-form-field class="d-inline">
           <input matInput placeholder="Nome" formControlName="name">
           <mat-error *ngIf="formRegister.controls.name.required">
+              Nome é <strong>obrigatório</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="d-inline">
+          <input matInput placeholder="CPF" formControlName="cpf">
+          <mat-error *ngIf="formRegister.controls.cpf.required">
               Nome é <strong>obrigatório</strong>
           </mat-error>
         </mat-form-field>

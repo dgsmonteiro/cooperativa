@@ -10,11 +10,13 @@ import { UserComponent } from './components/user/user.component';
 import { AgendaComponent } from './pages/agenda/agenda.component';
 import { AgendamentoComponent } from './pages/agendamento/agendamento.component';
 import { DadosPacienteComponent } from './pages/dados-paciente/dados-paciente.component';
+import { AbrirAgendaComponent } from './pages/abrir-agenda/abrir-agenda.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'agenda', component: AgendaComponent},
+  {path: 'abrir-agenda', component: AbrirAgendaComponent},
   {path: 'agendamento', component: AgendamentoComponent},
   {path: 'dados-paciente', component: DadosPacienteComponent},
   {path: 'register', component: RegisterComponent},
