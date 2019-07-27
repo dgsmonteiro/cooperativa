@@ -1,211 +1,85 @@
 <app-menu>
   <div class="main">
       <mat-form-field *ngIf="user.isNutri()" class="col-12 mt-5 mb-3">
-          <input matInput placeholder="Paciente" [(ngModel)]="busca" >
+          <input matInput placeholder="Paciente" [(ngModel)]="busca" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let pacienteOption of pacientes" [value]="pacienteOption.name" (click)="selecionaPaciente(pacienteOption)">
+              {{pacienteOption.name}}
+            </mat-option>
+          </mat-autocomplete>
       </mat-form-field>
+ 
     
-    <mat-tab-group class="width100">
+    <mat-tab-group class="width100" *ngIf="paciente">
         <mat-tab label="Dados Pessoais">
             <form>
                 <mat-form-field *ngIf="true" class="col-12">
-                  <input matInput placeholder="Nome" [value]="user.name">
+                  <input matInput placeholder="Nome" [(ngModel)]="paciente.usuarioPaciente.name" name="name">
                 </mat-form-field>
               
                 <mat-form-field *ngIf="true" class="col-12">
-                  <input matInput placeholder="E-mail" type="email" [value]="user.email">
+                  <input matInput placeholder="E-mail" type="email" [(ngModel)]="paciente.usuarioPaciente.email" name="email">
                 </mat-form-field>
               
                 <mat-form-field *ngIf="true" class="col-12">
-                  <input matInput placeholder="CPF" [value]="user.cpf">
+                  <input matInput placeholder="CPF" [(ngModel)]="paciente.usuarioPaciente.cpf" name="cpf">
                 </mat-form-field>
+            
               
-                <mat-form-field *ngIf="true" class="col-12">
-                  <input matInput placeholder="Endereço" [value]="">
+                <mat-form-field *ngIf="true" class="col-6">
+                  <input matInput type="tel" placeholder="Telefone Residencial" [(ngModel)]="paciente.dadosPaciente.telefone" name="telefone"> 
                 </mat-form-field>
               
                 <mat-form-field *ngIf="true" class="col-6">
-                  <input matInput type="tel" placeholder="Telefone Residencial" [value]="">
-                </mat-form-field>
-              
-                <mat-form-field *ngIf="true" class="col-6">
-                  <input matInput type="tel" placeholder="Telefone Celular" [value]="">
+                  <input matInput type="tel" placeholder="Telefone Celular" [(ngModel)]="paciente.dadosPaciente.celular" name="celular">
                 </mat-form-field>
               
               
               </form>
         </mat-tab>
-        <mat-tab label="Anamnese Nutricional" *ngIf="user.isNutri()">
-          <form>
-              <mat-form-field *ngIf="user.isNutri()" class="width100">
-                <input matInput placeholder="Profissão/ horario:" [value]="">
-              </mat-form-field>
-            
-              <mat-form-field *ngIf="user.isNutri()" class="width100">
-                <input matInput placeholder="Pratica atividade fisica? Quantas vezes e quantas horas por dia?"  [value]="">
-              </mat-form-field>
-            
-              <mat-form-field *ngIf="user.isNutri()" class="width100">
-                <input matInput placeholder="Come na frente da televisão?" [value]="">
-              </mat-form-field>
-            
-              <mat-form-field *ngIf="user.isNutri()" class="width100">
-                <input matInput placeholder="Possui alguma doença? Se sim qual?" [value]="">
-              </mat-form-field>
-            
-              <mat-form-field *ngIf="user.isNutri()" class="width100">
-                <input matInput placeholder="Possui diabetes ou hipertensão?" [value]="">
-              </mat-form-field>
-            
-              <mat-form-field *ngIf="user.isNutri()" class="width100">
-                <input matInput placeholder="Toma algum medicamento continuo? Qual e em qual horario?" [value]="">
-              </mat-form-field>
-            
-              <mat-form-field *ngIf="user.isNutri()" class="width100">
-                <input matInput placeholder="Etilista ou tabagista? Quantas vezes por dia?" [value]="">
-              </mat-form-field>
-            
-              <mat-form-field *ngIf="user.isNutri()" class="width100">
-                <input matInput placeholder="Mastigação?" [value]="">
-              </mat-form-field>
-            
-              <mat-form-field *ngIf="user.isNutri()" class="width100">
-                <input matInput placeholder="Possui dentição completa?" [value]="">
-              </mat-form-field>
-            
-              <mat-form-field *ngIf="user.isNutri()" class="width100">
-                <input matInput placeholder="Frequencia intestinal/ quantas vezes/ conscistencia?" [value]="">
-              </mat-form-field>
-            
-              <mat-form-field *ngIf="user.isNutri()" class="width100">
-                <input matInput placeholder="Ingestão hidrica/ quantos copos de agua ou quantos litros de agua por dia?" [value]="">
-              </mat-form-field>
-            
-              <mat-form-field *ngIf="user.isNutri()" class="width100">
-                <input matInput placeholder="Intolerancia ou alergia alimentar?" [value]="">
-              </mat-form-field>
-            
-              <mat-form-field *ngIf="user.isNutri()" class="width100">
-                <input matInput placeholder="Quantas refeiçoes costuma fazer por dia? E onde?" [value]="">
-              </mat-form-field>
-            
-              <mat-form-field *ngIf="user.isNutri()" class="width100">
-                <input matInput placeholder="Prepara suas proprias refeições?" [value]="">
-              </mat-form-field>
-            
-            
-            </form>
-      </mat-tab>
-        <mat-tab label="Dados Antropometricos" *ngIf="user.isNutri()">
+        <mat-tab label="Endereço">
             <form>
-                <mat-form-field *ngIf="user.isNutri()" class="width100">
-                  <input matInput placeholder="Estatura" [value]="">
+                <mat-form-field *ngIf="true" class="col-10">
+                  <input matInput placeholder="Endereço" [(ngModel)]="paciente.dadosPaciente.endereco" name="endereco">
                 </mat-form-field>
-              
-                <mat-form-field *ngIf="user.isNutri()" class="width100">
-                  <input matInput placeholder="Perímetro do Pulso"  [value]="">
-                </mat-form-field>
-              
-                <mat-form-field *ngIf="user.isNutri()" class="width100">
-                  <input matInput placeholder="Peso Ideal"  [value]="">
-                </mat-form-field>
-              
-                <mat-form-field *ngIf="user.isNutri()" class="width100">
-                  <input matInput placeholder="Peso Habitual"  [value]="">
-                </mat-form-field>
-              
-                <mat-form-field *ngIf="user.isNutri()" class="width100">
-                  <input matInput placeholder="Peso Atual"  [value]="">
-                </mat-form-field>
-              
-                <mat-form-field *ngIf="user.isNutri()" class="width100">
-                  <input matInput placeholder="Circunferência Abdominal"  [value]="">
-                </mat-form-field>
-              
-                <mat-form-field *ngIf="user.isNutri()" class="width100">
-                  <input matInput placeholder="Classificação"  [value]="">
-                </mat-form-field>
-              
-                <mat-form-field *ngIf="user.isNutri()" class="width100">
-                  <input matInput placeholder="Perda de Peso"  [value]="">
-                </mat-form-field>
-              
-                <mat-form-field *ngIf="user.isNutri()" class="width100">
-                  <input matInput placeholder="Porcentagem da Perda"  [value]="">
-                </mat-form-field>
-              
-                <mat-form-field *ngIf="user.isNutri()" class="width100">
-                  <input matInput placeholder="Classificação"  [value]="">
-                </mat-form-field>
-              
-                <table mat-table [dataSource]="classificacaoValores">
-                  <ng-container matColumnDef="date">
-                    <th mat-header-cell *matHeaderCellDef>Datas</th>
-                    <th mat-cell *matCellDef="let element">{{element.date}}</th>
-                  </ng-container>
-                  <ng-container matColumnDef="pesoAI">
-                    <th mat-header-cell *matHeaderCellDef>Peso Atual / Ideal</th>
-                    <td mat-cell *matCellDef="let element">{{element.pesoAI}}</td>
-                  </ng-container>
-                  <ng-container matColumnDef="porcentagemAdequacao">
-                    <th mat-header-cell *matHeaderCellDef>% Adequação</th>
-                    <td mat-cell *matCellDef="let element">{{element.porcentagemAdequacao}}</td>
-                  </ng-container>
-                  <ng-container matColumnDef="classificacao">
-                    <th mat-header-cell *matHeaderCellDef>Classificação</th>
-                    <td mat-cell *matCellDef="let element">{{element.classificacao}}</td>
-                  </ng-container>
-                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
-              
-                
-                <mat-form-field *ngIf="user.isNutri()" class="width100">
-                  <input matInput placeholder="Circunferência Abdominal"  [value]="">
-                </mat-form-field>
-              
-                <mat-form-field *ngIf="user.isNutri()" class="width100">
-                  <input matInput placeholder="Peso" [value]="">
-                </mat-form-field>
-              
+                <button class="col-2" mat-raised-button color="primary" (click)="pesquisarEndereco()">Pequisar</button>
               
               </form>
-        </mat-tab>
-        <mat-tab label="Dados Clinicos" *ngIf="user.isNutri()" >
-            <form>
-                <mat-form-field *ngIf="user.isNutri()" class="width100">
-                  <input matInput placeholder="Nome" [value]="">
-                </mat-form-field>
-              
-                <mat-form-field *ngIf="user.isNutri()" class="width100">
-                  <input matInput placeholder="Altura"  [value]="">
-                </mat-form-field>
-              
-                <mat-form-field *ngIf="user.isNutri()" class="width100">
-                  <input matInput placeholder="Peso" [value]="">
-                </mat-form-field>
-              
-              </form>
+              <agm-map [latitude]="paciente.dadosPaciente.lat" [zoom]="zoom" [longitude]="paciente.dadosPaciente.lng">
+                  <agm-marker  [latitude]="paciente.dadosPaciente.lat" [longitude]="paciente.dadosPaciente.lng"></agm-marker>
+                </agm-map>
         </mat-tab>
         <mat-tab label="Dados Financeiros">
             <form>
                 <mat-form-field *ngIf="true" class="width100">
-                  <input matInput placeholder="Nome" [value]="">
+                  <input matInput placeholder="Nome impresso no Cartão" [(ngModel)]="paciente.dadosPaciente.nomeCartao" name="nomeCartao">
                 </mat-form-field>
               
                 <mat-form-field *ngIf="true" class="width100">
-                  <input matInput placeholder="Altura"  [value]="">
+                  <input matInput placeholder="Numero do Cartão"  [(ngModel)]="paciente.dadosPaciente.numeroCartao" name="numeroCartao">
                 </mat-form-field>
               
                 <mat-form-field *ngIf="true" class="width100">
-                  <input matInput placeholder="Peso" [value]="">
+                  <input matInput placeholder="Mes Vencimento" [(ngModel)]="paciente.dadosPaciente.mesCartao" name="mesCartao">
+                </mat-form-field>
+                <mat-form-field *ngIf="true" class="width100">
+                  <input matInput placeholder="Ano Vencimento" [(ngModel)]="paciente.dadosPaciente.anoCartao" name="anoCartao">
+                </mat-form-field>
+                <mat-form-field *ngIf="true" class="width100">
+                  <input matInput placeholder="CVV" [(ngModel)]="paciente.dadosPaciente.cvvCartao" name="cvvCartao">
                 </mat-form-field>
               
               
               
               </form>
         </mat-tab>
-    </mat-tab-group>
-      
         
+    </mat-tab-group>
+
+    <div class="d-flex justify-content-center">
+        <button class="col-2 mr-5" mat-raised-button color="primary" (click)="atualizar()" *ngIf="paciente">Atualizar</button>
+        <button class="col-2" mat-raised-button color="warn" (click)="remover(paciente.usuarioPaciente._id)" *ngIf="paciente">Apagar</button>
+    </div>
+
   </div>
 </app-menu>

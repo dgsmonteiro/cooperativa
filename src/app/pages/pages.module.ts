@@ -1,5 +1,6 @@
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { Page404Component } from './page404/page404.component';
 import { LoginComponent } from './login/login.component';
@@ -7,7 +8,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { RegisterComponent } from './register/register.component';
 import { HeaderModule } from '../components/header/header.module';
 import { FooterModule } from '../components/footer/footer.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalAdicionarServicoModule } from '../components/modalAdicionarServico/modalAdicionarServico.module';
 import { AppRoutingModule } from '../app-routing.module';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -29,6 +30,7 @@ import { DadosPacienteComponent } from './dados-paciente/dados-paciente.componen
 import { MenuModule } from '../components/menu/menu.module';
 import { CalendarModule, CalendarCommonModule, DateAdapter} from 'angular-calendar';
 import { FlatpickrModule } from 'angularx-flatpickr';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { registerLocaleData } from '@angular/common';
 import { NgbModalModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
@@ -36,7 +38,7 @@ import { AgmCoreModule } from '@agm/core';
 
 
 import ptBr from '@angular/common/locales/pt';
-import { MatNativeDateModule, MatStepperModule, MatCheckboxModule } from '@angular/material';
+import { MatNativeDateModule, MatStepperModule, MatCheckboxModule, MatAutocompleteModule, MatDialogModule } from '@angular/material';
 import { AbrirAgendaComponent } from './abrir-agenda/abrir-agenda.component';
 
 registerLocaleData(ptBr);
@@ -47,8 +49,6 @@ registerLocaleData(ptBr);
   imports: [
     NgbModalModule,
     NgbTypeaheadModule,
-    FormsModule,
-    ReactiveFormsModule,
     MatSidenavModule,
     MatFormFieldModule,
     MatSelectModule,
@@ -62,12 +62,17 @@ registerLocaleData(ptBr);
     MatTableModule,
     MatToolbarModule,
     MatDatepickerModule,
+    MatAutocompleteModule,
+    MatDialogModule,
     MatNativeDateModule,
     MatStepperModule,
     MatCheckboxModule,
+    FormsModule,
+    ReactiveFormsModule,
     CalendarCommonModule,
     CalendarModule,
-    FlatpickrModule.forRoot(),
+    NgxMaterialTimepickerModule,
+    FlatpickrModule.forRoot({locale: ptBr}),
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
@@ -75,6 +80,7 @@ registerLocaleData(ptBr);
     CommonModule,
     FooterModule,
     HeaderModule,
+    ModalAdicionarServicoModule,
     MenuModule,
     AppRoutingModule,
     AgmCoreModule.forRoot({apiKey: 'AIzaSyDfPbNnfE5ktwmYBMuI_S7jH04khiAQomM'})
@@ -91,6 +97,7 @@ registerLocaleData(ptBr);
     AgendamentoComponent,
     AbrirAgendaComponent
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'pt' }, MatDatepickerModule]
+  providers: [{ provide: LOCALE_ID, useValue: 'pt' }, MatDatepickerModule],
+  entryComponents: []
 })
 export class PagesModule { }

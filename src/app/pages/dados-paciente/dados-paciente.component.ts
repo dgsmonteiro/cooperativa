@@ -1,16 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { UserComponent } from '../../components/user/user.component';
-import { Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { PacienteService } from '../../services/paciente.service';
 import { HttpResponse } from '@angular/common/http';
+import { GoogleMapsService } from 'src/app/services/googlemaps.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { Paciente } from 'src/app/models/Paciente';
 
-export interface PeriodicElement {
-  date: string;
-  pesoAI: string;
-  porcentagemAdequacao: string;
-  classificacao: string;
-}
 
 @Component({
   selector: 'app-dados-paciente',
@@ -20,38 +15,31 @@ export interface PeriodicElement {
 export class DadosPacienteComponent implements OnInit {
   user: UserComponent = new UserComponent;
   busca: String;
-  paciente: HttpResponse<Object> = null;
-  pacientes: HttpResponse<UserComponent>[];
+  paciente: Paciente;
+  pacientes: [Paciente];
   service: PacienteService;
   anamnese: {};
-  classificacaoValores: PeriodicElement[] = [
-    {date: '01/01/2019', pesoAI: '20 Kg', porcentagemAdequacao: '30%', classificacao: 'Alta'},
-    {date: '01/01/2019', pesoAI: '20 Kg', porcentagemAdequacao: '30%', classificacao: 'Alta'},
-    {date: '01/01/2019', pesoAI: '20 Kg', porcentagemAdequacao: '30%', classificacao: 'Alta'},
-    {date: '01/01/2019', pesoAI: '20 Kg', porcentagemAdequacao: '30%', classificacao: 'Alta'},
-    {date: '01/01/2019', pesoAI: '20 Kg', porcentagemAdequacao: '30%', classificacao: 'Alta'},
-    {date: '01/01/2019', pesoAI: '20 Kg', porcentagemAdequacao: '30%', classificacao: 'Alta'},
-    {date: '01/01/2019', pesoAI: '20 Kg', porcentagemAdequacao: '30%', classificacao: 'Alta'},
-    {date: '01/01/2019', pesoAI: '20 Kg', porcentagemAdequacao: '30%', classificacao: 'Alta'},
-    {date: '01/01/2019', pesoAI: '20 Kg', porcentagemAdequacao: '30%', classificacao: 'Alta'},
-    {date: '01/01/2019', pesoAI: '20 Kg', porcentagemAdequacao: '30%', classificacao: 'Alta'},
-    {date: '01/01/2019', pesoAI: '20 Kg', porcentagemAdequacao: '30%', classificacao: 'Alta'},
-    {date: '01/01/2019', pesoAI: '20 Kg', porcentagemAdequacao: '30%', classificacao: 'Alta'}
-  ];
-  displayedColumns: string[] = ['date', 'pesoAI', 'porcentagemAdequacao', 'classificacao'];
+  formEndereco: FormGroup;
+  formDadosPessoais: FormGroup;
+  formDadosFinanceiros: FormGroup;
+  zoom = 15;
 
 
-  constructor(private pacienteService: PacienteService) {
+  constructor(private pacienteService: PacienteService, private _formBuilder: FormBuilder, private googleMaps: GoogleMapsService) {
+      
+    
   }
 
   ngOnInit() {
+    
     this.pacienteService.listar()
-    .subscribe((resposta: HttpResponse<UserComponent>[]) => {
-      JSON.stringify(resposta);
-      this.pacientes = resposta;
-      console.log(resposta);
+    .subscribe((resposta: any) => {
+      this.pacientes = resposta.pacientes;
     });
+    
+    
   }
+  
 
   // search = (text$: Observable<string>) =>
   //   text$.pipe(
@@ -61,13 +49,40 @@ export class DadosPacienteComponent implements OnInit {
   //       : this.pacientes.name.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
   //   )
 
-  selecionaPaciente (paciente: UserComponent) {
-    this.pacienteService.selecionar(paciente.id)
-    .subscribe((resposta: HttpResponse<Object>) => {
-      JSON.stringify(resposta);
+  selecionaPaciente (paciente: any) {
+    this.paciente = null;
+    this.pacienteService.selecionar(paciente._id)
+    .subscribe((resposta: Paciente) => {
       this.paciente = resposta;
+
     });
 
+  }
+  pesquisarEndereco() {
+    this.googleMaps.pesquisar(this.paciente.dadosPaciente.endereco)
+    .subscribe((resposta: HttpResponse<UserComponent>) => {
+      this.atualizarEndereco(resposta);
+
+    });
+  }
+  atualizarEndereco(dados) {
+    if ( dados.status === 'OK' && dados.results[0]) {
+      this.paciente.dadosPaciente.endereco = dados.results[0].formatted_address;
+      this.paciente.dadosPaciente.lat = dados.results[0].geometry.location.lat;
+      this.paciente.dadosPaciente.lng = dados.results[0].geometry.location.lng;
+    }
+  }
+  atualizar() {
+    this.pacienteService.atualizar(this.paciente)
+    .subscribe((resposta: Paciente) => {
+      console.log(resposta);
+    })
+  }
+  remover(id) {
+    this.pacienteService.apagar(id)
+    .subscribe((resposta) => {
+      console.log(resposta);
+    })
   }
 
 

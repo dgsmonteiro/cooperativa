@@ -3,11 +3,32 @@ import {
 } from '@angular/core';
 import { UserComponent } from '../../components/user/user.component';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatTableDataSource } from '@angular/material';
 import {
   PRESET_FORMS, PRESET_VALIDATORS, PRESET_FORMATTERS
 } from '../../models/FormModal';
+import { SelectionModel } from '@angular/cdk/collections';
+import { AgendaService } from 'src/app/services/agenda.service';
 
+export interface DadosAgenda {
+  fim: Date;
+  inicio: Date;
+  servico: string;
+  valor: Number;
+}
+
+const ELEMENT_DATA: DadosAgenda[] = [
+  {inicio: new Date(), fim: new Date(), valor: 1.0079, servico: 'H'},
+  {inicio: new Date(), fim: new Date(), valor: 4.0026, servico: 'He'},
+  {inicio: new Date(), fim: new Date(), valor: 6.941, servico: 'Li'},
+  {inicio: new Date(), fim: new Date(), valor: 9.0122, servico: 'Be'},
+  {inicio: new Date(), fim: new Date(), valor: 10.811, servico: 'B'},
+  {inicio: new Date(), fim: new Date(), valor: 12.0107, servico: 'C'},
+  {inicio: new Date(), fim: new Date(), valor: 14.0067, servico: 'N'},
+  {inicio: new Date(), fim: new Date(), valor: 15.9994, servico: 'O'},
+  {inicio: new Date(), fim: new Date(), valor: 18.9984, servico: 'F'},
+  {inicio: new Date(), fim: new Date(), valor: 20.1797, servico: 'Ne'},
+];
 
 
 @Component({
@@ -17,151 +38,49 @@ import {
 })
 export class HomeComponent implements OnInit {
   user: UserComponent = new UserComponent();
+  displayedColumns: string[] = ['select', 'inicio', 'fim', 'servico', 'valor'];
+  dataSource = new MatTableDataSource<DadosAgenda>(ELEMENT_DATA);
+  selection = new SelectionModel<DadosAgenda>(true, []);
 
-  constructor(
-    // formBuilder: FormBuilder,
-    // private conversationService: ConversationService,
-    // private alertas: MatSnackBar
-    ) {
 
-    // this.formMessage = formBuilder.group({
-    //   textBox: new FormControl('', {
-    //     updateOn: 'change',
-    //     validators: [Validators.required]
-    //   })
-    // });
+  constructor(private agendaService: AgendaService) {
+
+ 
   }
 
   ngOnInit() {
-    // menssagem de boas vindas
-    // this.waitingResponse = true;
-    // this.conversationService.sendMsg('ola', this.chatbot.context).subscribe(
-    //   res => this.chatbotAns(res),
-    //   err => console.log(err)
-    // );
+   this.agendaService.listar()
+   .subscribe((resposta: any) => {
+    this.dataSource = new MatTableDataSource<DadosAgenda>(resposta.agendas);;
+  });
   }
 
-  // sugestoesFiltradas(): string[] {
-  //   const texto = this.formMessage.controls.textBox.value || '';
-  //   return this.sugestao.filter(x => x.toUpperCase().includes(texto.toUpperCase()));
-  // }
 
-  // sendMessage() {
-  //   const caixaTxt = this.formMessage.controls.textBox as FormControl;
-  //   caixaTxt.updateValueAndValidity();
-  //   const msg: string = caixaTxt.value.trim();
-  //   if (!msg) {
-  //     return;
-  //   }
-  //   if (!caixaTxt.valid) {
-  //     this.alertas.open(
-  //       (caixaTxt.errors || {
-  //         message: `O ${this.nomeValidacao} que você digitou é inválido!`
-  //       }).message as string,
-  //       'Entendi',
-  //       { politeness: 'polite', duration: 3000, verticalPosition: 'top' }
-  //     );
-  //     return;
-  //   } else if (!this.waitingResponse) {
-  //     caixaTxt.setValidators(Validators.required);
-  //     this.placeholder = 'O assistente está digitando...';
-  //     this.waitingResponse = true;
-  //     delete this.chatbot.context.sugestao;
-  //     this.conversation.push({ text: this.formatMessage(msg), type: 'client' });
-  //     // this.conversationService.sendMsg(msg, this.chatbot.context).subscribe(
-  //     //   res => this.chatbotAns(res),
-  //     //   err => console.log(err)
-  //     // );
-  //     this.formMessage.reset();
-  //   }
-  // }
 
-  // private formatMessage(msg: string): string {
-  //   const formatter = PRESET_FORMATTERS[this.nomeValidacao];
-  //   if (formatter) {
-  //     return formatter(msg);
-  //   } else {
-  //     return msg;
-  //   }
-  // }
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
 
-  // sugestionClicked(suggestion: string) {
-  //   this.formMessage.controls.textBox.setValue(suggestion);
-  //   this.sendMessage();
-  // }
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+        this.selection.clear() :
+        this.dataSource.data.forEach(row => this.selection.select(row));
+  }
 
-  // chatbotAns(res: any) {
-  //   this.waitingResponse = false;
-  //   this.chatLastRes = res;
-  //   this.chatbot.context = res.response.context;
-  //   if (!res.response.output.nao_entendi) {
-  //     this.sugestao = res.response.context.sugestao || [];
-  //     delete this.chatbot.context.sugestao;
-  //   }
-  //   if (res.success) {
-  //     if (Array.isArray(res.response.output.text)) {
-  //       res.response.output.text.forEach((msg: any) => {
-  //         this.conversation.push({ text: msg, type: 'bot' });
-  //       });
-  //     } else {
-  //       this.conversation.push({ text: res.response.output.text, type: 'bot' });
-  //     }
-  //   }
-  //   this.updateValidations();
-  // }
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: DadosAgenda): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.inicio}`;
+  }
 
-  // ngAfterViewChecked() {
-  //   this.scrollToBottom();
-  // }
-
-  // inputFocus() {
-  //   this.scrollToBottom();
-  // }
-
-  // validInput(): boolean {
-  //   const txtBox = this.formMessage.controls.textBox;
-  //   return txtBox.valid && txtBox.value;
-  // }
-
-  // private updateValidations() {
-  //   const dadosValidacao = this.chatbot.context.validacao;
-  //   const formName: string = this.chatbot.context.formulario;
-  //   this.scrollToBottom();
-  //   if (!formName && !dadosValidacao) {
-  //     this.placeholder = 'Digite aqui sua mensagem';
-  //     return;
-  //   }
-  //   const validatorName = dadosValidacao.nome;
-  //   const caixaTxt = this.formMessage.controls.textBox as FormControl;
-  //   const validator = PRESET_VALIDATORS[validatorName];
-  //   const form = PRESET_FORMS[formName];
-  //   if (form) {
-  //     // TODO abir modal
-  //     console.log('abrir modal');
-  //   } else if (validator) {
-  //     caixaTxt.setValidators(validator);
-  //     this.nomeValidacao = validatorName;
-  //     this.placeholder = this.chatbot.context.validacao.placeholder ||
-  //       'Digite aqui o seu ' + validatorName;
-  //   } else {
-  //     console.error(`Não foi possivel encontrar o formulario "${formName}" ou ` +
-  //       `a validação "${validatorName}"`);
-  //   }
-  //   delete this.chatbot.context.validacao;
-  //   delete this.chatbot.context.formulario;
-  //   const nativeInput = this.refCaixaTexto.nativeElement as HTMLInputElement;
-  //   nativeInput.focus();
-  //   nativeInput.click();
-  // }
-
-  // private scrollToBottom() {
-  //   if (this.divConversa && this.divConversa.nativeElement) {
-  //     const baloes: HTMLElement = this.divConversa.nativeElement;
-  //     baloes.scroll({
-  //       top: baloes.scrollHeight,
-  //       behavior: 'smooth'
-  //     });
-  //   }
-  // }
+  cancelarAgendas(){
+    console.log(this.selection);
+  }
 }
 

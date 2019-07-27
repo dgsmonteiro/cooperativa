@@ -1,22 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders,  } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import {environment} from 'src/environments/environment'
+import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-
-import {User} from '../models/User';
-import { environment } from 'src/environments/environment';
-
 
 @Injectable({
   providedIn: 'root'
 })
-export class PacienteService {
+export class AgendaService {
 
-  constructor(private http: HttpClient) {
-   }
+  constructor(private http: HttpClient) { }
 
-  listar() {
-    return this.http.get<any>(`${environment.apiUrl}/pacientes`)
+  nova(agenda) {
+    return this.http.post<any>(`${environment.apiUrl}/agenda/nova`, agenda)
         .pipe(map(pacientes => {
             // login successful if there's a jwt token in the response
             if (pacientes) {
@@ -26,19 +21,19 @@ export class PacienteService {
 
             return pacientes;
         }));
-}
-  selecionar(id) {
-    return this.http.get<any>(`${environment.apiUrl}/pacientes/selecionar?userId=${id}`)
-        .pipe(map(paciente => {
+  }
+  listar() {
+    return this.http.get<any>(`${environment.apiUrl}/agenda`)
+        .pipe(map(agendas => {
             // login successful if there's a jwt token in the response
-            if (paciente) {
-                console.log(JSON.stringify(paciente));
+            if (agendas) {
+                console.log(JSON.stringify(agendas));
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
             }
-            return paciente;
+            return agendas;
         }));
-}
-atualizar(paciente) {
+  }
+  atualizar(paciente) {
   return this.http.put<any>(`${environment.apiUrl}/pacientes/atualizar?userId=${paciente.dadosPaciente.userId}`, paciente)
         .pipe(map(pacienteParam => {
             // login successful if there's a jwt token in the response
@@ -48,8 +43,8 @@ atualizar(paciente) {
             }
             return pacienteParam;
         }));
-}
-apagar(id) {
+  }
+  apagar(id) {
   return this.http.delete<any>(`${environment.apiUrl}/pacientes/apagar?userId=${id}`)
         .pipe(map(pacienteParam => {
             // login successful if there's a jwt token in the response
@@ -59,6 +54,5 @@ apagar(id) {
             }
             return pacienteParam;
         }));
-}
-
+  }
 }
