@@ -15,20 +15,8 @@ export interface DadosAgenda {
   inicio: Date;
   servico: string;
   valor: Number;
+  _id: String;
 }
-
-const ELEMENT_DATA: DadosAgenda[] = [
-  {inicio: new Date(), fim: new Date(), valor: 1.0079, servico: 'H'},
-  {inicio: new Date(), fim: new Date(), valor: 4.0026, servico: 'He'},
-  {inicio: new Date(), fim: new Date(), valor: 6.941, servico: 'Li'},
-  {inicio: new Date(), fim: new Date(), valor: 9.0122, servico: 'Be'},
-  {inicio: new Date(), fim: new Date(), valor: 10.811, servico: 'B'},
-  {inicio: new Date(), fim: new Date(), valor: 12.0107, servico: 'C'},
-  {inicio: new Date(), fim: new Date(), valor: 14.0067, servico: 'N'},
-  {inicio: new Date(), fim: new Date(), valor: 15.9994, servico: 'O'},
-  {inicio: new Date(), fim: new Date(), valor: 18.9984, servico: 'F'},
-  {inicio: new Date(), fim: new Date(), valor: 20.1797, servico: 'Ne'},
-];
 
 
 @Component({
@@ -39,7 +27,7 @@ const ELEMENT_DATA: DadosAgenda[] = [
 export class HomeComponent implements OnInit {
   user: UserComponent = new UserComponent();
   displayedColumns: string[] = ['select', 'inicio', 'fim', 'servico', 'valor'];
-  dataSource = new MatTableDataSource<DadosAgenda>(ELEMENT_DATA);
+  dataSource = new MatTableDataSource<DadosAgenda>();
   selection = new SelectionModel<DadosAgenda>(true, []);
 
 
@@ -80,7 +68,20 @@ export class HomeComponent implements OnInit {
   }
 
   cancelarAgendas(){
-    console.log(this.selection);
+    for (let agenda of this.selection.selected) {
+      this.agendaService.apagar(agenda._id)
+      .subscribe((resposta) => {
+        console.log(resposta);
+      })
+      this.dataSource.data = this.arrayRemove(this.dataSource.data, agenda);
+    }
   }
+  
+  arrayRemove(arr, value) {
+    return arr.filter(function(ele){
+        return ele != value;
+    });
+ 
+ }
 }
 

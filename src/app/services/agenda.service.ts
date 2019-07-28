@@ -22,6 +22,18 @@ export class AgendaService {
             return pacientes;
         }));
   }
+  agendar(parametros) {
+    return this.http.post<any>(`${environment.apiUrl}/agendamento/agendar`, parametros)
+        .pipe(map(pacientes => {
+            // login successful if there's a jwt token in the response
+            if (pacientes) {
+                console.log(JSON.stringify(pacientes));
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+            }
+
+            return pacientes;
+        }));
+  }
   listar() {
     return this.http.get<any>(`${environment.apiUrl}/agenda`)
         .pipe(map(agendas => {
@@ -45,7 +57,7 @@ export class AgendaService {
         }));
   }
   apagar(id) {
-  return this.http.delete<any>(`${environment.apiUrl}/pacientes/apagar?userId=${id}`)
+  return this.http.delete<any>(`${environment.apiUrl}/agenda/apagar?agendaId=${id}`)
         .pipe(map(pacienteParam => {
             // login successful if there's a jwt token in the response
             if (pacienteParam) {
@@ -54,5 +66,27 @@ export class AgendaService {
             }
             return pacienteParam;
         }));
+  }
+  diasDisponiveis(inicio, fim){
+    return this.http.get<any>(`${environment.apiUrl}/agendamento/dias-disponiveis?inicio=${inicio}&fim=${fim}`)
+    .pipe(map(agendas => {
+        // login successful if there's a jwt token in the response
+        if (agendas) {
+            console.log(JSON.stringify(agendas));
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+        }
+        return agendas;
+    }));
+  }
+  agendasDisponiveis(dia){
+    return this.http.get<any>(`${environment.apiUrl}/agendamento/agendas-disponiveis?dia=${dia}`)
+    .pipe(map(agendas => {
+        // login successful if there's a jwt token in the response
+        if (agendas) {
+            console.log(JSON.stringify(agendas));
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+        }
+        return agendas;
+    }));
   }
 }
