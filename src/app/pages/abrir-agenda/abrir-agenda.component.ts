@@ -4,9 +4,9 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { GoogleMapsService } from 'src/app/services/googlemaps.service';
 import { HttpResponse } from '@angular/common/http';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { ModalAdicionarServico } from 'src/app/components/modalAdicionarServico/modalAdicionarServico.component';
 import { AgendaService } from 'src/app/services/agenda.service';
 import { ThrowStmt } from '@angular/compiler';
+import { ServicoService } from 'src/app/services/servico.service';
 
 export interface DadosServico {
   name: string;
@@ -51,7 +51,8 @@ export class AbrirAgendaComponent implements OnInit {
   servicos: { name: string; descricao: string; valor: number; }[];
   novoServico: DadosServico;
 
-  constructor(private _formBuilder: FormBuilder, private googleMaps: GoogleMapsService, public dialog: MatDialog, private agendaService: AgendaService) { }
+  constructor(private _formBuilder: FormBuilder, private googleMaps: GoogleMapsService,
+    public dialog: MatDialog, private agendaService: AgendaService, private servicoService: ServicoService) { }
 
   ngOnInit() {
     this.passo1 = this._formBuilder.group({
@@ -78,26 +79,13 @@ export class AbrirAgendaComponent implements OnInit {
     this.passo4 = this._formBuilder.group({
       valorConsulta: ['', Validators.required],
       dinheiro: [true],
-      pagSeguro: [true]
+      pagseguro: [true]
     });
 
-    this.servicos = [
-      { 
-        name:'Consulta + Bioimpedância',
-        descricao: 'Teste',
-        valor: 160
-      },
-      { 
-        name:'Consulta',
-        descricao: 'Teste',
-        valor: 100
-      },
-      { 
-        name:'Bioimpedância',
-        descricao: 'Teste',
-        valor: 80
-      }
-    ]
+    this.servicoService.listar()
+    .subscribe(resposta => {
+      this.servicos = resposta.servicos;
+    });
   }
 
   diasDisponiveis = (d: Date): boolean => {
@@ -120,19 +108,14 @@ export class AbrirAgendaComponent implements OnInit {
       this.lng = dados.results[0].geometry.location.lng;
     }
   }
-  adicionarServico(){
-
-    const dialogRef = this.dialog.open(ModalAdicionarServico, {
-      width: '250px',
-      data: {name: '', descricao: '', valor: 0}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.novoServico = result;
+  selecionaServico() {
+    this.servicoService.selecionar(this.passo1.value.servico)
+    .subscribe(resposta => {
+      this.passo1.value.tempoServico = resposta.servico.tempoAtendimento;
+      this.passo1.value.valorConsulta = resposta.servico.valor;
     });
   }
-  abrirAgenda(){
+  abrirAgenda() {
     if (this.passo1.valid && this.passo2.valid && this.passo3.valid && this.passo4.valid) {
       this.agendaService.nova({
         user: this.user,
@@ -142,14 +125,15 @@ export class AbrirAgendaComponent implements OnInit {
         horaInicio: this.passo2.value.horaInicio,
         horaFim: this.passo2.value.horaFim,
         servico: this.passo1.value.servico,
+        servicoId: this.passo1.value.servico,
         tempoAtendimento: this.passo1.value.tempoServico,
         endereco: this.passo3.value.localizacao,
         valor: this.passo4.value.valorConsulta,
-        formaPagamento: {dinheiro: this.passo4.value.dinheiro, pagSeguro: this.passo4.value.pagSeguro},
+        formaPagamento: {dinheiro: this.passo4.value.dinheiro, pagseguro: this.passo4.value.pagseguro},
 
       }).subscribe((resposta: HttpResponse<UserComponent>) => {
       console.log(resposta);
-      })
+      });
     }
   }
 }

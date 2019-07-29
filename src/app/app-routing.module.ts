@@ -11,6 +11,8 @@ import { AgendaComponent } from './pages/agenda/agenda.component';
 import { AgendamentoComponent } from './pages/agendamento/agendamento.component';
 import { DadosPacienteComponent } from './pages/dados-paciente/dados-paciente.component';
 import { AbrirAgendaComponent } from './pages/abrir-agenda/abrir-agenda.component';
+import { ServicosComponent } from './pages/servicos/servicos.component';
+import { AuthGuard } from './services/auth.guard.service';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -22,6 +24,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'about', component: AboutComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},
+  {path: 'servicos', component: ServicosComponent},
   {path: '**', component: Page404Component }
 ];
 

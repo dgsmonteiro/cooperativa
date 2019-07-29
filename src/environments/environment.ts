@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000',
+  apiUrl: 'http://191.252.201.155:3000',
   googleMapsUrl: 'https://maps.googleapis.com/maps/api/geocode'
 };
 

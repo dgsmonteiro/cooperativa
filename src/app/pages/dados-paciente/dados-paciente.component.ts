@@ -17,7 +17,6 @@ export class DadosPacienteComponent implements OnInit {
   busca: String;
   paciente: Paciente;
   pacientes: [Paciente];
-  service: PacienteService;
   anamnese: {};
   formEndereco: FormGroup;
   formDadosPessoais: FormGroup;

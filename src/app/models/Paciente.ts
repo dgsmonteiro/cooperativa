@@ -1,22 +1,21 @@
 export class Paciente {
     dadosPaciente: {
-      userId: String,
-      endereco: String,
-      lat: Number,
-      lng: Number,
-      telefone: Number,
-      celular: Number,
-      nomeCartao: String,
-      numeroCartao: Number,
-      mesCartao: Number,
-      anoCartao: Number,
-      cvvCartao: Number
-  
-    }
+      userId: string,
+      endereco: string,
+      lat: number,
+      lng: number,
+      telefone: number,
+      celular: number,
+      nomeCartao: string,
+      numeroCartao: number,
+      mesCartao: number,
+      anoCartao: number,
+      cvvCartao: number
+    };
     usuarioPaciente: {
-      _id: String,
-      name: String,
-      email: String,
-      cpf: Number
-    }
+      _id: string,
+      name: string,
+      email: string,
+      cpf: number
+    };
   }

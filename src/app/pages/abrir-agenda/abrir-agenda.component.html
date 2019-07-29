@@ -10,12 +10,12 @@
           <form [formGroup]="passo1">
             <ng-template matStepLabel>Tipo de Serviço</ng-template>
             <mat-form-field class="col-8"> 
-              <mat-select placeholder="Serviço" [(ngModel)]="passo1.value.servico" formControlName="servico">
-                <mat-option *ngFor="let servico of servicos" [value]="servico.name">{{servico.name}}</mat-option>
+              <mat-select placeholder="Serviço" [(ngModel)]="passo1.value.servico" formControlName="servico" (ngModelChange)="selecionaServico()">
+                <mat-option *ngFor="let servico of servicos" [value]="servico._id">{{servico.name}}</mat-option>
               </mat-select>
             </mat-form-field>
 
-            <button class="col-2 ml-5" mat-raised-button color="primary" (click)="adicionarServico()">Novo Serviço</button>
+            <a class="col-2 ml-5" mat-raised-button color="primary" href='/servico'>Novo Serviço</a>
 
             <mat-form-field class="col-3">
               <input matInput placeholder="Tempo de Atendimento" type="number" [(ngModel)]="passo1.value.tempoServico" formControlName="tempoServico">
@@ -41,7 +41,7 @@
                 <mat-checkbox
                 class="col-2"
                 [(ngModel)]="passo2.value.segunda"
-                [labelPosition]="before"
+                labelPosition="before"
                 formControlName="segunda">
                   Seg
               </mat-checkbox>
@@ -49,7 +49,7 @@
                 <mat-checkbox
                 class="col-2"
                 [(ngModel)]="passo2.value.terca"
-                [labelPosition]="before"
+                labelPosition="before"
                 formControlName="terca">
                   Ter
               </mat-checkbox>
@@ -57,7 +57,7 @@
                 <mat-checkbox
                 class="col-2"
                 [(ngModel)]="passo2.value.quarta"
-                [labelPosition]="before"
+                labelPosition="before"
                 formControlName="quarta">
                   Qua
               </mat-checkbox>
@@ -65,7 +65,7 @@
                 <mat-checkbox
                 class="col-2"
                 [(ngModel)]="passo2.value.quinta"
-                [labelPosition]="before"
+                labelPosition="before"
                 formControlName="quinta">
                   Qui
               </mat-checkbox>
@@ -73,21 +73,21 @@
                 <mat-checkbox
                 class="col-2"
                 [(ngModel)]="passo2.value.sexta"
-                [labelPosition]="before"
+                labelPosition="before"
                 formControlName="sexta">
                   Sex
               </mat-checkbox>
                 <mat-checkbox
                 class="col-2"
                 [(ngModel)]="passo2.value.sabado"
-                [labelPosition]="before"
+                labelPosition="before"
                 formControlName="sabado">
                   Sab
               </mat-checkbox>
                 <mat-checkbox
                 class="col-2"
                 [(ngModel)]="passo2.value.domingo"
-                [labelPosition]="before"
+                labelPosition="before"
                 formControlName="domingo">
                   Dom
               </mat-checkbox>
@@ -152,16 +152,16 @@
               <mat-checkbox
               class="row col-3 ml-5 mt-2"
               [(ngModel)]="dinheiro"
-              [labelPosition]="before"
+              labelPosition="before"
               formControlName="dinheiro">
                 Dinheiro
               </mat-checkbox>
 
               <mat-checkbox
               class="row col-3 ml-5"
-              [(ngModel)]="pagSeguro"
-              [labelPosition]="before"
-              formControlName="pagSeguro">
+              [(ngModel)]="pagseguro"
+              labelPosition="before"
+              formControlName="pagseguro">
                 PagSeguro
               </mat-checkbox>
 

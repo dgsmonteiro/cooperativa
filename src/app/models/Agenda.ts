@@ -1,24 +1,22 @@
-export class Agenda {
-    agenda: {
-      userId: String,
-      inicio: String,
-      fim: Number,
-      horaInicio: Number,
-      horaFim: Number,
-      endereco: Number,
-      valor: String,
-      formaPagamento: {
-        dinheiro: Boolean,
-        pagSeguro: Boolean
-      }
-    }
+import { Agendamento } from './Agendamento';
 
-    set (agenda) {
-      this.agenda = agenda;
-    }
-    get (){
-      return this.agenda;
-    }
-    
+export class Agenda {
+      _id: string;
+      userId: string;
+      servicoId: string;
+      inicio: Date;
+      fim: Date;
+      horaInicio: string;
+      horaFim: string;
+      endereco: string;
+      tempoAtendimento: number;
+      valor: string;
+      formaPagamento: {
+        dinheiro: Boolean;
+        pagSeguro: Boolean;
+      };
+      agendamentos: Agendamento[];
+      data: Date;
+      minutos: number;
+      hora: number;
   }
-  

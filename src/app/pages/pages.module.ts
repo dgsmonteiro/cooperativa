@@ -8,7 +8,6 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { RegisterComponent } from './register/register.component';
 import { HeaderModule } from '../components/header/header.module';
 import { FooterModule } from '../components/footer/footer.module';
-import { ModalAdicionarServicoModule } from '../components/modalAdicionarServico/modalAdicionarServico.module';
 import { AppRoutingModule } from '../app-routing.module';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -40,6 +39,7 @@ import { AgmCoreModule } from '@agm/core';
 import ptBr from '@angular/common/locales/pt';
 import { MatNativeDateModule, MatStepperModule, MatCheckboxModule, MatAutocompleteModule, MatDialogModule } from '@angular/material';
 import { AbrirAgendaComponent } from './abrir-agenda/abrir-agenda.component';
+import { ServicosComponent } from './servicos/servicos.component';
 
 registerLocaleData(ptBr);
 
@@ -80,7 +80,6 @@ registerLocaleData(ptBr);
     CommonModule,
     FooterModule,
     HeaderModule,
-    ModalAdicionarServicoModule,
     MenuModule,
     AppRoutingModule,
     AgmCoreModule.forRoot({apiKey: 'AIzaSyDfPbNnfE5ktwmYBMuI_S7jH04khiAQomM'})
@@ -95,7 +94,8 @@ registerLocaleData(ptBr);
     AgendaComponent,
     DadosPacienteComponent,
     AgendamentoComponent,
-    AbrirAgendaComponent
+    AbrirAgendaComponent,
+    ServicosComponent
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'pt' }, MatDatepickerModule],
   entryComponents: []
