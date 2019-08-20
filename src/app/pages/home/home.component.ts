@@ -9,6 +9,7 @@ import {
 } from '../../models/FormModal';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AgendaService } from 'src/app/services/agenda.service';
+import { isError } from 'util';
 
 export interface DadosAgenda {
   fim: Date;
@@ -26,21 +27,30 @@ export interface DadosAgenda {
 })
 export class HomeComponent implements OnInit {
   user: UserComponent = new UserComponent();
-  displayedColumns: string[] = ['select', 'inicio', 'fim', 'servico', 'valor'];
-  dataSource = new MatTableDataSource<DadosAgenda>();
-  selection = new SelectionModel<DadosAgenda>(true, []);
+  displayedColumns: string[];
+  dataSource = new MatTableDataSource<any>();
+  selection = new SelectionModel<any>(true, []);
 
 
   constructor(private agendaService: AgendaService) {
-
- 
   }
 
   ngOnInit() {
-   this.agendaService.listar()
-   .subscribe((resposta: any) => {
-    this.dataSource = new MatTableDataSource<DadosAgenda>(resposta.agendas);;
-  });
+    if (this.user.isNutri()) {
+      this.agendaService.listar()
+      .subscribe((resposta: any) => {
+      this.dataSource = new MatTableDataSource<any>(resposta.agendas);
+      this.displayedColumns = ['select', 'inicio', 'fim', 'servico', 'valor'];
+    });
+   }
+    if (this.user.isPaciente()) {
+      this.agendaService.meusAgendamentos()
+      .subscribe((resposta: any) => {
+      this.dataSource = new MatTableDataSource<any>(resposta.agendamentos);
+      this.displayedColumns = ['select', 'data', 'hora', 'servico', 'profissional'];
+
+    });
+   }
   }
 
 
@@ -67,21 +77,31 @@ export class HomeComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.inicio}`;
   }
 
-  cancelarAgendas(){
-    for (let agenda of this.selection.selected) {
-      this.agendaService.apagar(agenda._id)
-      .subscribe((resposta) => {
-        console.log(resposta);
-      })
-      this.dataSource.data = this.arrayRemove(this.dataSource.data, agenda);
+  cancelarAgendas() {
+    if (this.user.isNutri()) {
+      for (const agenda of this.selection.selected) {
+        this.agendaService.apagar(agenda._id)
+        .subscribe((resposta) => {
+          console.log(resposta);
+        });
+        this.dataSource.data = this.arrayRemove(this.dataSource.data, agenda);
+      }
+    } else {
+      for (const agendamento of this.selection.selected) {
+        this.agendaService.apagarAgendamento(agendamento._id)
+        .subscribe((resposta) => {
+          console.log(resposta);
+        });
+        this.dataSource.data = this.arrayRemove(this.dataSource.data, agendamento);
+      }
     }
   }
-  
+
   arrayRemove(arr, value) {
-    return arr.filter(function(ele){
-        return ele != value;
+    return arr.filter(function(ele) {
+        return ele !== value;
     });
- 
+
  }
 }
 

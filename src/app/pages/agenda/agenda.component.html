@@ -1,21 +1,4 @@
 <app-menu>
-  <div *ngIf="user.isPaciente()" class="main">
-      <form>
-          <mat-form-field *ngIf="user.isPaciente()" class="col-12">
-            <input matInput type="date" placeholder="Data" [value]="user.name">
-          </mat-form-field>
-        
-          <mat-form-field *ngIf="user.isPaciente()" class="col-12">
-            <input matInput type="time" placeholder="Hora"  [value]="user.email">
-          </mat-form-field>
-        
-          <mat-form-field *ngIf="user.isPaciente()" class="col-12">
-            <input matInput placeholder="Peso" value="Sushi">
-          </mat-form-field>
-        
-        
-        </form>
-  </div>
     <div *ngIf="user.isNutri()" class="main">
         <div class="row text-center mt-5">
             <div class="col-md-4">
@@ -58,13 +41,15 @@
                 <div
                   class="btn btn-primary"
                   (click)="view = CalendarView.Week"
-                  [class.active]="view === CalendarView.Week">
+                  [class.active]="view === CalendarView.Week"
+                  >
                   Semana
                 </div>
                 <div
                   class="btn btn-primary"
                   (click)="view = CalendarView.Day"
-                  [class.active]="view === CalendarView.Day">
+                  [class.active]="view === CalendarView.Day"
+                  >
                   Dia
                 </div>
               </div>
@@ -88,7 +73,9 @@
               [events]="events"
               [refresh]="refresh"
               (eventClicked)="handleEvent('Clicked', $event.event)"
-              (eventTimesChanged)="eventTimesChanged($event)">
+              (eventTimesChanged)="eventTimesChanged($event)"
+              [dayStartHour]="7"
+              [dayEndHour]="21">
             </mwl-calendar-week-view>
             <mwl-calendar-day-view
               *ngSwitchCase="CalendarView.Day"
@@ -96,13 +83,15 @@
               [events]="events"
               [refresh]="refresh"
               (eventClicked)="handleEvent('Clicked', $event.event)"
-              (eventTimesChanged)="eventTimesChanged($event)">
+              (eventTimesChanged)="eventTimesChanged($event)"
+              [dayStartHour]="7"
+              [dayEndHour]="21">
             </mwl-calendar-day-view>
           </div>
           
           <br><br><br>
           
-          <h3>
+          <h3 *ngIf="false">
             Editar Eventos
             <button
               class="btn btn-primary pull-right"
@@ -112,7 +101,7 @@
             <div class="clearfix"></div>
           </h3>
           
-          <table class="table table-bordered">
+          <table class="table table-bordered" *ngIf="false">
           
             <thead>
               <tr>

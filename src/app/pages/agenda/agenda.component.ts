@@ -16,7 +16,8 @@ import {
   endOfMonth,
   isSameDay,
   isSameMonth,
-  addHours
+  addHours,
+  addMinutes
 } from 'date-fns';
 import {
   CalendarEvent,
@@ -24,6 +25,8 @@ import {
   CalendarEventTimesChangedEvent,
   CalendarView
 } from 'angular-calendar';
+import { AgendaService } from 'src/app/services/agenda.service';
+import { CalendarEventActionsComponent } from 'angular-calendar/modules/common/calendar-event-actions.component';
 
 
 
@@ -48,9 +51,9 @@ const colors: any = {
   templateUrl: './agenda.component.html',
   styleUrls: ['./agenda.component.scss']
 })
-export class AgendaComponent {
+export class AgendaComponent implements OnInit  {
   user: UserComponent = new UserComponent;
-  view: CalendarView = CalendarView.Month;
+  view: CalendarView = CalendarView.Week;
 
   CalendarView = CalendarView;
 
@@ -65,64 +68,51 @@ export class AgendaComponent {
     {
       label: '<i class="fa fa-fw fa-pencil"></i>',
       onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
+        this.handleEvent('Alterar', event);
       }
     },
     {
       label: '<i class="fa fa-fw fa-times"></i>',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.events = this.events.filter(iEvent => iEvent !== event);
-        this.handleEvent('Deleted', event);
+        this.handleEvent('Cancelar', event);
       }
     }
   ];
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: colors.red,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: colors.yellow,
-      actions: this.actions
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.blue,
-      allDay: true
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: new Date(),
-      title: 'A draggable and resizable event',
-      color: colors.yellow,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true
-    }
-  ];
+  events: CalendarEvent[] = [];
 
   activeDayIsOpen: Boolean = true;
 
-  constructor() {}
+  constructor(private agendaService: AgendaService) {
+    this.agendaService.listar()
+    .subscribe((resposta: any) => {
+      for (const agenda of resposta.agendas) {
+        for (const agendamento of agenda.agendamentos) {
+          const data = new Date(agendamento.data);
+          data.setHours(agendamento.hora, agendamento.minutos);
+          this.events.push({
+            start: data,
+            end: addMinutes(data, agendamento.tempoAtendimento),
+            title: agendamento.nome,
+            color: colors.red,
+            actions: this.actions,
+            resizable: {
+              beforeStart: true,
+              afterEnd: true
+            },
+            draggable: true
+          });
+        }
+      }
+      this.refresh.next();
+  });
+  }
+
+  ngOnInit() {
+  }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {

@@ -58,6 +58,7 @@ apagar(id) {
 }
 adicionar(servico) {
   return this.http.post<any>(`${environment.apiUrl}/servico/novo`, servico)
+      // tslint:disable-next-line:no-shadowed-variable
       .pipe(map(servico => {
           // login successful if there's a jwt token in the response
           if (servico) {

@@ -5,7 +5,7 @@ export class Agendamento {
       agendaId: string;
       data: Date;
       hora: number;
-      minuto: number;
+      minutos: number;
       servico: string;
       pagamento: Boolean;
   }

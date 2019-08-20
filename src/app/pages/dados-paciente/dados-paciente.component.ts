@@ -25,20 +25,24 @@ export class DadosPacienteComponent implements OnInit {
 
 
   constructor(private pacienteService: PacienteService, private _formBuilder: FormBuilder, private googleMaps: GoogleMapsService) {
-      
-    
+
+
   }
 
   ngOnInit() {
-    
-    this.pacienteService.listar()
+    if (this.user.isNutri()) {
+      this.pacienteService.listar()
     .subscribe((resposta: any) => {
       this.pacientes = resposta.pacientes;
     });
-    
-    
+    } else {
+      this.pacienteService.selecionar(this.user.id)
+      .subscribe((resposta: Paciente) => {
+        this.paciente = resposta;
+      });
+    }
   }
-  
+
 
   // search = (text$: Observable<string>) =>
   //   text$.pipe(
@@ -75,13 +79,13 @@ export class DadosPacienteComponent implements OnInit {
     this.pacienteService.atualizar(this.paciente)
     .subscribe((resposta: Paciente) => {
       console.log(resposta);
-    })
+    });
   }
   remover(id) {
     this.pacienteService.apagar(id)
     .subscribe((resposta) => {
       console.log(resposta);
-    })
+    });
   }
 
 

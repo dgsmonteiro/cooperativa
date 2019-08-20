@@ -135,3 +135,12 @@
   .mat-cell {
     text-align: left;
   }
+  .imagem-capa {
+    float: right;
+    width: 150px;
+  }
+  @media screen and (min-width: 500px) {
+    .imagem-capa {
+      width: 500px;
+    }
+  }

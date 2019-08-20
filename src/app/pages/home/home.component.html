@@ -4,21 +4,22 @@
                 <div class="jumbotron container banner mt-5">
 
                     
-                    <div class="container" *ngIf="user.isNutri()">
-                            <h3 class="text-center mb-3">Agendas abertas</h3>
+                    <div class="container">
+                            <h3 class="text-center mb-3" *ngIf="user.isNutri()">Agendas abertas</h3>
+                            <h3 class="text-center mb-3" *ngIf="user.isPaciente()">Meus Agendamentos</h3>
 
-                            <table mat-table [dataSource]="dataSource" class="col-12 mat-elevation-z8 mt-4 mb-4">
+                            <table mat-table [dataSource]="dataSource" class="col-12 mt-4 mb-4">
 
                                     <!-- Checkbox Column -->
                                     <ng-container matColumnDef="select">
-                                      <th mat-header-cell *matHeaderCellDef>
+                                      <th mat-header-cell *matHeaderCellDef sticky>
                                         <mat-checkbox (change)="$event ? masterToggle() : null"
                                                       [checked]="selection.hasValue() && isAllSelected()"
                                                       [indeterminate]="selection.hasValue() && !isAllSelected()"
                                                       >
                                         </mat-checkbox>
                                       </th>
-                                      <td mat-cell *matCellDef="let row">
+                                      <td mat-cell *matCellDef="let row" sticky>
                                         <mat-checkbox (click)="$event.stopPropagation()"
                                                       (change)="$event ? selection.toggle(row) : null"
                                                       [checked]="selection.isSelected(row)"
@@ -28,13 +29,23 @@
                                     </ng-container>
                                   
                                     <!-- Position Column -->
-                                    <ng-container matColumnDef="inicio">
+                                    <ng-container matColumnDef="inicio" *ngIf="user.isNutri()">
                                       <th mat-header-cell *matHeaderCellDef> Data Inicio </th>
                                       <td mat-cell *matCellDef="let element"> {{element.inicio | date:'dd/MM/yyyy'}} </td>
                                     </ng-container>
+
+                                    <ng-container matColumnDef="data" *ngIf="user.isPaciente()">
+                                      <th mat-header-cell *matHeaderCellDef> Data  </th>
+                                      <td mat-cell *matCellDef="let element"> {{element.data | date:'dd/MM/yyyy'}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="hora" *ngIf="user.isPaciente()">
+                                      <th mat-header-cell *matHeaderCellDef> Hora  </th>
+                                      <td mat-cell *matCellDef="let element"> {{element.hora}}:{{element.minutos < 9 ? element.minutos+'0': element.minutos}} </td>
+                                    </ng-container>
                                   
                                     <!-- Name Column -->
-                                    <ng-container matColumnDef="fim">
+                                    <ng-container matColumnDef="fim" *ngIf="user.isNutri()">
                                       <th mat-header-cell *matHeaderCellDef> Data Fim </th>
                                       <td mat-cell *matCellDef="let element"> {{element.fim | date:'dd/MM/yyyy'}} </td>
                                     </ng-container>
@@ -44,9 +55,13 @@
                                       <th mat-header-cell *matHeaderCellDef> Serviço </th>
                                       <td mat-cell *matCellDef="let element"> {{element.servico}} </td>
                                     </ng-container>
+                                    <ng-container matColumnDef="profissional" *ngIf="user.isPaciente()">
+                                      <th mat-header-cell *matHeaderCellDef> Profissional </th>
+                                      <td mat-cell *matCellDef="let element"> {{element.profissional}} </td>
+                                    </ng-container>
                                   
                                     <!-- Symbol Column -->
-                                    <ng-container matColumnDef="valor">
+                                    <ng-container matColumnDef="valor" *ngIf="user.isNutri()">
                                       <th mat-header-cell *matHeaderCellDef> Valor </th>
                                       <td mat-cell *matCellDef="let element"> {{element.valor | currency:'R$'}} </td>
                                     </ng-container>
@@ -56,7 +71,7 @@
                                         (click)="selection.toggle(row)">
                                     </tr>
                                   </table>
-                                  <div class="align-right mb-3 mt-1" *ngIf="user.isNutri()"><button mat-raised-button color="primary" (click)="cancelarAgendas()">Cancelar agendas selecionadas</button></div>
+                                  <div class="align-right mb-3 mt-1" *ngIf="user.isAutenticate()"><button mat-raised-button color="primary" (click)="cancelarAgendas()">Cancelar selecionados</button></div>
                     </div>
 
                     <div class="container">
@@ -69,249 +84,39 @@
                                         <br>- Acompanhamento de Medidas;
                                         <br>- Metas;
                                         <br>- Desafios.<br></p>
-                                        <div class="align-right mb-3 mt-1"><a mat-raised-button color="primary" href="agendamento">Agende uma Consulta</a></div>
+                                        <div class="align-right mb-3 mt-1"><button mat-raised-button color="primary" [routerLink]="['/agendamento']">Agende uma Consulta</button></div>
 
                                             
                                 </div>
-                                <!-- <img src="../../../assets/images/background4.jpg" alt="scrum"> -->
                             </div>
-                            <!-- <mat-divider class="mb-4 mt-4"></mat-divider>
-                            <ul>
-                                <li><strong>COMUNIDADE&nbsp;</strong>- Desenvolvimento é em comunidade, usamos o princípio do
-                                    cooperativismo para crescermos como uma comunidade comprometida e dedicada.</li>
-                                <li><strong>AGILIDADE</strong> - Atualmente os métodos ágeis simplificam muito a vida de quem
-                                    contrata serviços de desenvolvimento.&nbsp;</li>
-                                <li><strong>ECONOMIA </strong>- Acreditamos que em comunidade podemos transformar o
-                                    desenvolvimento de software algo acessível.&nbsp;</li>
-                                <li><strong>FLEXIBILIDADE</strong> - Com a metodologia SCRUM, você acompanha cada passo do
-                                    desenvolvimento, podendo solicitar alterações sempre que precisar.</li>
-                            </ul> -->
+                           
                         </div>
-                    <!-- <div class="container d-flex justify-content-between mb-3">
-        
-                        <mat-card class="card-50">
-        
-                            <img mat-card-image src="../../../assets/images/mbr-1080x696.jpg" alt="Quero Contratar Serviços">
-                            <mat-card-title>Quero Desenvolver um Produto</mat-card-title>
-                            <mat-card-content>
-                                <p>Temos a tecnologia e a equipe que você precisa para colocar sua empresa na internet ou por
-                                    em prática aquele projeto que tanto sonhou. Consulte-nos!</p>
-                            </mat-card-content>
-                        </mat-card>
-        
-                        <mat-card class="card-50">
-        
-                            <img mat-card-image src="../../../assets/images/mbr-1-510x340.jpg" alt="Sou Desenvolver">
-                            <mat-card-title>Sou Desenvolvedor</mat-card-title>
-                            <mat-card-content>
-                                <p>Nós queremos resolver o problema da distância entre quem está disposto a desenvolver com
-                                    quem precisa de desenvolvimento, utilizamos as melhores ferramentas de mercado. Faça parte!</p>
-                            </mat-card-content>
-                        </mat-card>
-        
-                    </div> -->
+                   
         </div>
-            <!-- <div class="container d-flex justify-content-between mt-5">
-            <mat-card class="card-25">
-                <img mat-card-image src="../../../assets/images/angular-510x510.png" alt="angular">
-                <mat-card-title class="display-4">Angular</mat-card-title>
-                <mat-card-content>
-                    <p class="display-7">
-                        Angular (comumente referido como "Angular 2+" ou "Angular 2") é uma plataforma de
-                        aplicações web de código-fonte aberto e front-end baseado em TypeScript liderado pela
-                        Equipe Angular do Google e por uma comunidade de indivíduos e corporações. Angular é uma
-                        reescrita completa do AngularJS, feito pela mesma equipe que o construiu.
-                    </p>
-                </mat-card-content>
-                <mat-card-actions>
-                    <a class="btn btn-sm btn-secondary display-4" href="https://angular.io" target="_blank">
-                        Saiba Mais</a>
-                </mat-card-actions>
-            </mat-card>
-            <mat-card class="card-25">
-                <div class="card-img d-flex align-items-center">
-                    <img mat-card-image src="../../../assets/images/node-510x312.png" alt="angular">
-                </div>
-                <mat-card-title class="display-4">NodeJs</mat-card-title>
-                <mat-card-content>
-                    <p class="display-7">
-                        Node.js é um interpretador de código JavaScript com o código aberto, focado em migrar o
-                        Javascript do lado do cliente para servidores. Seu objetivo é ajudar programadores na
-                        criação de aplicações de alta escalabilidade (como um servidor web), com códigos capazes de
-                        manipular dezenas de milhares de conexões simultâneas, numa única máquina física.&nbsp;O
-                        Node.js é baseado no interpretador V8 JavaScript Engine (interpretador de JavaScript open
-                        source implementado pelo Google em C++ e utilizado pelo Chrome). Foi criado por Ryan Dahl
-                        em 2009, e seu desenvolvimento é mantido pela fundação Node.js em parceria com a Linux
-                        Foundation.
-                    </p>
-                </mat-card-content>
-                <mat-card-actions>
-                    <a class="btn btn-sm btn-secondary display-4" href="https://nodejs.org/en/" target="_blank">
-                        Saiba Mais</a>
-                </mat-card-actions>
-            </mat-card>
-            <mat-card class="card-25">
-                <img mat-card-image src="../../../assets/images/bootstrap-510x428.png" alt="angular">
-                <mat-card-title class="display-4">Bootstrap</mat-card-title>
-                <mat-card-content>
-                    <p class="display-7">
-                        Bootstrap é um framework web com código-fonte aberto para desenvolvimento de componentes de
-                        interface e front-end para sites e aplicações web usando HTML, CSS e JavaScript, baseado em
-                        modelos de design para a tipografia, melhorando a experiência do usuário em um site
-                        amigável e responsivo.
-                        <br>
-                        <br>O Bootstrap é um dos projetos mais bem avaliado no site GitHub, com mais de 111 600
-                        estrelas e 51 500 forks. </p>
-                </mat-card-content>
-                <mat-card-actions>
-                    <a class="btn btn-sm btn-secondary display-4" href="https://getbootstrap.com/" target="_blank">
-                        Saiba Mais</a>
-                </mat-card-actions>
-            </mat-card>
-            <mat-card class="card-25">
-                <img mat-card-image src="../../../assets/images/magento-328x287.png" alt="angular">
-                <mat-card-title class="display-4">Magento</mat-card-title>
-                <mat-card-content>
-                    <p class="display-7">
-                        Magento é um sistema web de e-commerce de código aberto baseado em PHP e MySQL utilizando
-                        elementos do Framework Zend, totalmente modular, desenvolvido pela Magento Inc (antiga
-                        Varien).<br><br>Com mais de 240.000 lojas implantadas no mundo e presente em mais de 50
-                        países, o Magento é considerada a plataforma de e-commerce mais popular do mundo. Em
-                        pesquisa realizada pela Aheadworks em Setembro de 2012, foi constatado que o Magento é
-                        utilizado por 31,4% das empresas. Além disso, o termo "Magento" já é mais procurado na
-                        internet do que o próprio termo "e-commerce"
-                </mat-card-content>
-                <mat-card-actions>
-                    <a class="btn btn-sm btn-secondary display-4" href="https://magento.com/" target="_blank">
-                        Saiba Mais</a>
-                </mat-card-actions>
-            </mat-card>
-
-
-        </div> -->
+       
         </div>
         <div *ngIf="!user.isAutenticate()">
             <div class="jumbotron container banner mt-5">
 
 
-                <h3 class="text-center mb-3">Seja Bem Vindo</h3>
-
-            
-            <p class="text-left display-7">
-                Esse é o nosso espaço, aqui você poderá encontrar mais detalhes sobre seu acompanhamento nutricional:
-                <br>- Agendamento de Consultas;
-                <br>- Acompanhamento de Medidas;
-                <br>- Metas;
-                <br>- Desafios.<br></p>
-                <div class="align-right mb-3 mt-1"><a mat-raised-button color="primary" href="agendamento">Agende uma Consulta</a></div>
-            </div>
-            <!-- <div class="container mb-5">
-                    <div class="row justify-content-center">
-                        <div class="col-sm-12 ol-md-6">
-                            <h3 class="display-5">
-                                NÓS SOMOS SCRUM</h3>
-                            <p class="text-left display-7">
-                                O Papo com a gente aqui é bem simples:<br>- Agende uma demonstração do software em um mês a
-                                partir de agora;
-                                <br>- Como equipe, temos um mês para deixar o software pronto para uma demo, com
-                                funcionalidades prontas, não simplesmente telas;
-                                <br>- Na demonstração, obtemos seu feedback e usamos para guiar o seu próximo mês de
-                                trabalho de desenvolvimento.<br></p>
-                            <div class="align-self-left"><a class="btn btn-sm btn-primary display-4" href="http://www.desenvolvimentoagil.com.br/scrum/"
-                                    target="_blank">Saiba Mais</a></div>
-                                    
-                        </div>
-                        <img src="../../../assets/images/agile101-what-is-scrum-437x144.png" width="540.1805555555555"
-                            height="178" alt="scrum">
+                <h3 class="text-center mb-5">Seja Bem Vindo</h3>
+              <div class="row mb-4">
+                  <div class="col-12">
+                      <img src="../../../assets/images/fotoTatiane.jpg" alt="" class="imagem-capa img-thumbnail rounded">
+                      <p class="text-left display-6">
+                        Dra. Tatiane Ribeiro Guimarães Nutricionista - CRN3 58346
+          <br><br>
+                        Apaixonada pela Nutrição.
+                        <br>
+                        <br>- Graduada Bacharel em Nutrição pela Universidade São Judas Tadeu;
+                          <br>- Personal Diet pelo Senac SP;
+                          <br>- Atua na área de nutrição clínica em São Paulo.<br></p>
                     </div>
-                    <mat-divider class="mb-4 mt-4"></mat-divider>
-                    <ul>
-                        <li><strong>COMUNIDADE&nbsp;</strong>- Desenvolvimento é em comunidade, usamos o princípio do
-                            cooperativismo para crescermos como uma comunidade comprometida e dedicada.</li>
-                        <li><strong>AGILIDADE</strong> - Atualmente os métodos ágeis simplificam muito a vida de quem
-                            contrata serviços de desenvolvimento.&nbsp;</li>
-                        <li><strong>ECONOMIA </strong>- Acreditamos que em comunidade podemos transformar o
-                            desenvolvimento de software algo acessível.&nbsp;</li>
-                        <li><strong>FLEXIBILIDADE</strong> - Com a metodologia SCRUM, você acompanha cada passo do
-                            desenvolvimento, podendo solicitar alterações sempre que precisar.</li>
-                    </ul>
-                </div>
-            <div class="container d-flex justify-content-between mb-3">
-
-                <mat-card class="card-50">
-
-                    <img mat-card-image src="../../../assets/images/mbr-1080x696.jpg" alt="Quero Contratar Serviços">
-                    <mat-card-title>Quero Desenvolver um Produto</mat-card-title>
-                    <mat-card-content>
-                        <p>Temos a tecnologia e a equipe que você precisa para colocar sua empresa na internet ou por
-                            em prática aquele projeto que tanto sonhou. Consulte-nos!</p>
-                    </mat-card-content>
-                </mat-card>
-
-                <mat-card class="card-50">
-
-                    <img mat-card-image src="../../../assets/images/mbr-1-510x340.jpg" alt="Sou Desenvolver">
-                    <mat-card-title>Sou Desenvolvedor</mat-card-title>
-                    <mat-card-content>
-                        <p>Nós queremos resolver o problema da distância entre quem está disposto a desenvolver com
-                            quem precisa de desenvolvimento, utilizamos as melhores ferramentas de mercado. Faça parte!</p>
-                    </mat-card-content>
-                </mat-card>
-
+              </div>
+            
+                <div class="align-right mb-3 mt-5"><a mat-raised-button color="primary"  [routerLink]="['/agendamento']">Agende uma Consulta</a></div>
             </div>
-
-
-
-            <div class="container d-flex justify-content-between mb-5 mt-5">
-                <mat-card class="card-25">
-
-                    <img mat-card-image src="../../../assets/images/mbr-510x339.jpg" alt="Landing Page">
-                    <mat-card-title>Landing Page</mat-card-title>
-                    <mat-card-content>
-                        <p>O conceito de Landing Page vai além da sua tradução literal (página de aterrissagem). No
-                            Marketing Digital, são páginas que possuem todos os elementos voltados à conversão do
-                            visitante em Lead, oportunidade ou cliente. Por esse motivo, Landing Pages costumam ter
-                            taxas de conversão maiores do que as de páginas comuns.</p>
-                    </mat-card-content>
-                </mat-card>
-
-                <mat-card class="card-25">
-
-                    <img mat-card-image src="../../../assets/images/mbr-510x340.jpg" alt="Landing Page">
-                    <mat-card-title>Loja Virtual</mat-card-title>
-                    <mat-card-content>
-                        <p>As vendas pela internet representam também uma grande oportunidade para as pequenas
-                            empresas, uma vez que as ferramentas de marketing on-line possibilitam que briguem de igual
-                            para igual com os grandes varejistas. Por isso, as lojas virtuais de pequeno porte são as
-                            que apresentam crescimento mais significativo, tirando cada vez mais quota de mercado dos
-                            grandes varejistas na internet.</p>
-                    </mat-card-content>
-                </mat-card>
-                <mat-card class="card-25">
-
-                    <img mat-card-image src="../../../assets/images/mbr-3-510x363.jpg" alt="Landing Page">
-                    <mat-card-title>Sistema Web</mat-card-title>
-                    <mat-card-content>
-                        <p>O número de usuários da internet no Brasil atingiu cerca de 100 milhões, de acordo com a
-                            última pesquisa realizada pela Agência Brasil. Esse número mostra a importância das
-                            empresas garantirem uma boa presença online para impulsionar as vendas. E a principal forma
-                            de garantir essa presença é através de um site ou aplicativo.</p>
-                    </mat-card-content>
-                </mat-card>
-                <mat-card class="card-25">
-
-                    <img mat-card-image src="../../../assets/images/mbr-1-510x340.jpg" alt="Landing Page">
-                    <mat-card-title>APP</mat-card-title>
-                    <mat-card-content>
-                        <p>Segundo uma pesquisa de mercado a cargo da Gartner, 102 mil milhões de apps serão instaladas
-                            durante o ano de 2013, 91% gratuitas, que ainda assim gerarão 26 biliões de Dólares
-                            Americanos. Conforme um relatório analítico estima-se que as receitas provenientes da
-                            distribuição de Apps ultrapassem os 10 mil milhões de dólares americanos por ano dentro da
-                            União Europeia, bem como, em 28 países da EU, mais de 529.000 de empregos criar-se-ão como
-                            resultado do aumento exponencial do mercado das apps.</p>
-                    </mat-card-content>
-                </mat-card>
-            </div> -->
+            
         </div>
 
     
@@ -320,22 +125,6 @@
 
 
         <app-footer>
-            <!-- <form [formGroup]="formMessage" autocomplete="off">
-  <div class="caixa-form-input">
-    <input #caixaTexto matInput aria-labelledby="" type="text" id="textBox"
-      name="textBox" class="mat-elevation-z2" (keyup.enter)="sendMessage()"
-      [class.texto-invalido]="!validInput()" formControlName="textBox"
-      [placeholder]="placeholder">
-    <button mat-icon-button id="sendBtn" type="button" aria-label="botão de enviar"
-      [disabled]="!validInput()" [color]="'primary'" (click)="sendMessage()"
-      [class.d-none]="waitingResponse">
-      <mat-icon aria-label="Icone botão enviar">send</mat-icon>
-    </button>
-    <span [class.d-none]="!waitingResponse" id="loading-spinner">
-      <mat-spinner [diameter]="30"></mat-spinner>
-    </span>
-  </div>
-</form> -->
 
 <div class="container">
     <div class="col-sm-12 align-center">

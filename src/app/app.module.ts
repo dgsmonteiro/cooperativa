@@ -13,12 +13,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { UserComponent } from './components/user/user.component';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './services/interceptors/jwt.interceptor';
+import { LogoutInterceptor } from './services/interceptors/logout.interceptor';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserComponent
+    UserComponent,
   ],
   imports: [
     NgbModule,

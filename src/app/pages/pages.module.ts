@@ -37,7 +37,8 @@ import { AgmCoreModule } from '@agm/core';
 
 
 import ptBr from '@angular/common/locales/pt';
-import { MatNativeDateModule, MatStepperModule, MatCheckboxModule, MatAutocompleteModule, MatDialogModule } from '@angular/material';
+import { MatNativeDateModule, MatStepperModule, MatCheckboxModule, MatAutocompleteModule, MatDialogModule,
+  MatSnackBarModule } from '@angular/material';
 import { AbrirAgendaComponent } from './abrir-agenda/abrir-agenda.component';
 import { ServicosComponent } from './servicos/servicos.component';
 
@@ -67,6 +68,7 @@ registerLocaleData(ptBr);
     MatNativeDateModule,
     MatStepperModule,
     MatCheckboxModule,
+    MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
     CalendarCommonModule,

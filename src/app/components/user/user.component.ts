@@ -17,8 +17,8 @@ export class UserComponent implements OnInit {
 
 
   constructor() {
-    if (localStorage.getItem('currentUser')) {
-      this.login(JSON.parse(localStorage.getItem('currentUser')));
+    if (sessionStorage.getItem('currentUser')) {
+      this.login(JSON.parse(sessionStorage.getItem('currentUser')));
     }
   }
 
@@ -55,7 +55,7 @@ export class UserComponent implements OnInit {
     }
   }
   logoff() {
-      localStorage.removeItem('currentUser');
+      sessionStorage.removeItem('currentUser');
       this.id = null;
       this.name = null;
       this.cpf = null;

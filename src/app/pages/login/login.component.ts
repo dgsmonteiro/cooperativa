@@ -5,6 +5,8 @@ import { UserComponent } from 'src/app/components/user/user.component';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/User';
 import { HttpResponse } from '@angular/common/http';
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 
 
 
@@ -22,7 +24,8 @@ export class LoginComponent implements OnInit {
 
 
 
-  constructor(private formBuilder: FormBuilder, private rota: ActivatedRoute, private router: Router, private authService: AuthService) {
+  constructor(private formBuilder: FormBuilder, private rota: ActivatedRoute, private router: Router, private authService: AuthService,
+    private _snackBar: MatSnackBar) {
 
     this.currentUser = new UserComponent();
 
@@ -37,12 +40,18 @@ export class LoginComponent implements OnInit {
   }
 
   login () {
-    this.authService.login(this.formLogin.controls.email.value, this.formLogin.controls.password.value)
+    if (this.formLogin.valid) {
+      this.authService.login(this.formLogin.controls.email.value, this.formLogin.controls.password.value)
         .subscribe((resposta: HttpResponse<UserComponent>) => {
           this.currentUser.login(resposta);
           this.router.navigate(['/']);
           console.log('user:', this.user);
+        }, (error) => {
+          this._snackBar.open(`${error.error.error}`, 'Fechar', {
+            duration: 2000
+          });
         });
+    }
   }
 
 }

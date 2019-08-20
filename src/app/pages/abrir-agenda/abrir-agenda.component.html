@@ -15,7 +15,7 @@
               </mat-select>
             </mat-form-field>
 
-            <a class="col-2 ml-5" mat-raised-button color="primary" href='/servico'>Novo Serviço</a>
+            <a class="col-2 ml-5" mat-raised-button color="primary" [routerLink]="['/servico']">Novo Serviço</a>
 
             <mat-form-field class="col-3">
               <input matInput placeholder="Tempo de Atendimento" type="number" [(ngModel)]="passo1.value.tempoServico" formControlName="tempoServico">

@@ -2,11 +2,12 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { UserComponent } from 'src/app/components/user/user.component';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { GoogleMapsService } from 'src/app/services/googlemaps.service';
-import { HttpResponse } from '@angular/common/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AgendaService } from 'src/app/services/agenda.service';
 import { ThrowStmt } from '@angular/compiler';
 import { ServicoService } from 'src/app/services/servico.service';
+import { MatSnackBar } from '@angular/material';
 
 export interface DadosServico {
   name: string;
@@ -51,7 +52,7 @@ export class AbrirAgendaComponent implements OnInit {
   servicos: { name: string; descricao: string; valor: number; }[];
   novoServico: DadosServico;
 
-  constructor(private _formBuilder: FormBuilder, private googleMaps: GoogleMapsService,
+  constructor(private _formBuilder: FormBuilder, private googleMaps: GoogleMapsService, private _snackBar: MatSnackBar,
     public dialog: MatDialog, private agendaService: AgendaService, private servicoService: ServicoService) { }
 
   ngOnInit() {
@@ -85,6 +86,10 @@ export class AbrirAgendaComponent implements OnInit {
     this.servicoService.listar()
     .subscribe(resposta => {
       this.servicos = resposta.servicos;
+    }, (error) => {
+      this._snackBar.open(`${error.error.error}`, 'Fechar', {
+        duration: 2000
+      });
     });
   }
 
@@ -99,6 +104,10 @@ export class AbrirAgendaComponent implements OnInit {
     .subscribe((resposta: HttpResponse<UserComponent>) => {
       this.atualizarEndereco(resposta);
 
+    }, (error) => {
+      this._snackBar.open(`${error.error.error}`, 'Fechar', {
+        duration: 2000
+      });
     });
   }
   atualizarEndereco(dados) {
@@ -111,8 +120,17 @@ export class AbrirAgendaComponent implements OnInit {
   selecionaServico() {
     this.servicoService.selecionar(this.passo1.value.servico)
     .subscribe(resposta => {
+      this.novoServico = {
+        valor: resposta.servico.valor,
+        name: resposta.servico.name,
+        descricao: ''
+      };
       this.passo1.value.tempoServico = resposta.servico.tempoAtendimento;
       this.passo1.value.valorConsulta = resposta.servico.valor;
+    }, (error) => {
+      this._snackBar.open(`${error.error.error}`, 'Fechar', {
+        duration: 2000
+      });
     });
   }
   abrirAgenda() {
@@ -124,7 +142,7 @@ export class AbrirAgendaComponent implements OnInit {
         fim: this.passo2.value.horarioSelecionado.to,
         horaInicio: this.passo2.value.horaInicio,
         horaFim: this.passo2.value.horaFim,
-        servico: this.passo1.value.servico,
+        servico: this.novoServico.name,
         servicoId: this.passo1.value.servico,
         tempoAtendimento: this.passo1.value.tempoServico,
         endereco: this.passo3.value.localizacao,
@@ -133,6 +151,10 @@ export class AbrirAgendaComponent implements OnInit {
 
       }).subscribe((resposta: HttpResponse<UserComponent>) => {
       console.log(resposta);
+      }, (error) => {
+        this._snackBar.open(`${error.error.error}`, 'Fechar', {
+          duration: 2000
+        });
       });
     }
   }

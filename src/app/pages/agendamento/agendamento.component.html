@@ -8,16 +8,18 @@
 
     
 
-    <mat-form-field class="col-6">
-      <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" [matDatepickerFilter]="diasDisponiveis" (dateInput)="selecionarDia($event)" placeholder="Data">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+    
 
     <mat-form-field class="col-6"> 
-        <mat-select placeholder="Serviço" [(ngModel)]="servico" (ngModelChange)="selecionaServico()">
-          <mat-option [value]="optionServico._id" *ngFor="let optionServico of servicosDisponiveis">{{optionServico.name}}</mat-option>
+        <mat-select placeholder="Serviço" [(ngModel)]="servico" (ngModelChange)="selecionaServico(servico)">
+          <mat-option [value]="optionServico._id" *ngFor="let optionServico of servicos">{{optionServico.name}}</mat-option>
         </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="col-6">
+        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" [matDatepickerFilter]="diasDisponiveis" (dateInput)="selecionarDia($event)" placeholder="Data">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
     <mat-form-field class="col-6">
@@ -29,8 +31,8 @@
     </mat-form-field>
 
 
-    <mat-form-field class="col-6">
-      <input matInput placeholder="Valor" type="number" disabled [(ngModel)]="valorConsulta">
+    <mat-form-field class="col-6" >
+      <input matInput placeholder="Valor" disabled [(ngModel)]="agenda.valor" >
       <span matPrefix>R$&nbsp;</span>
       <span matSuffix>.00</span>
     </mat-form-field>

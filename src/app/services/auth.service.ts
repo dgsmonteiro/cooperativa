@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 
 import {User} from '../models/User';
 import { environment } from 'src/environments/environment';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AuthService {
   public currentUser: Observable<User>;
 
   constructor(private http: HttpClient) {
-      this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+      this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(sessionStorage.getItem('currentUser')));
       this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -29,10 +30,9 @@ export class AuthService {
               if (user && user.token) {
                   console.log(user);
                   // store user details and jwt token in local storage to keep user logged in between page refreshes
-                  localStorage.setItem('currentUser', JSON.stringify(user));
+                  sessionStorage.setItem('currentUser', JSON.stringify(user));
                   this.currentUserSubject.next(user);
               }
-
               return user;
           }));
   }
@@ -43,7 +43,7 @@ export class AuthService {
               if (user && user.token) {
                   console.log(user);
                   // store user details and jwt token in local storage to keep user logged in between page refreshes
-                  localStorage.setItem('currentUser', JSON.stringify(user));
+                  sessionStorage.setItem('currentUser', JSON.stringify(user));
                   this.currentUserSubject.next(user);
               }
 
@@ -53,7 +53,29 @@ export class AuthService {
 
   logout() {
       // remove user from local storage to log user out
-      localStorage.removeItem('currentUser');
+      sessionStorage.removeItem('currentUser');
       this.currentUserSubject.next(null);
   }
+  listarServicos() {
+    return this.http.get<any>(`${environment.apiUrl}/auth/listar_servicos`)
+        .pipe(map(servicos => {
+            // login successful if there's a jwt token in the response
+            if (servicos) {
+                console.log(JSON.stringify(servicos));
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+            }
+            return servicos;
+        }));
+ }
+  listarAgendas(servicoId) {
+    return this.http.get<any>(`${environment.apiUrl}/auth/listar_agendas?servicoId=${servicoId}`)
+        .pipe(map(servicos => {
+            // login successful if there's a jwt token in the response
+            if (servicos) {
+                console.log(JSON.stringify(servicos));
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+            }
+            return servicos;
+        }));
+ }
 }
