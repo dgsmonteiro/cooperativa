@@ -46,8 +46,8 @@ export class AbrirAgendaComponent implements OnInit {
 
 
   localizacao = '';
-  lat = -23.8779431;
-  lng = -49.8046873;
+  lat = -23.5503099;
+  lng = -46.6342009;
   zoom = 15;
   servicos: { name: string; descricao: string; valor: number; }[];
   novoServico: DadosServico;

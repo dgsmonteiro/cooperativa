@@ -45,9 +45,10 @@
                 <button class="col-2" mat-raised-button color="primary" (click)="pesquisarEndereco()">Pequisar</button>
               
               </form>
-              <agm-map [latitude]="paciente.dadosPaciente.lat" [zoom]="zoom" [longitude]="paciente.dadosPaciente.lng">
-                  <agm-marker  [latitude]="paciente.dadosPaciente.lat" [longitude]="paciente.dadosPaciente.lng"></agm-marker>
-                </agm-map>
+              <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng">
+                <agm-marker  [latitude]="lat" [longitude]="lng"></agm-marker>
+              </agm-map>
+          
         </mat-tab>
         <mat-tab label="Dados Financeiros">
             <form class="container mt-4">

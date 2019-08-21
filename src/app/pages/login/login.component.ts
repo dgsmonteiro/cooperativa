@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserComponent } from 'src/app/components/user/user.component';
@@ -23,10 +23,8 @@ export class LoginComponent implements OnInit {
   user: User;
 
 
-
   constructor(private formBuilder: FormBuilder, private rota: ActivatedRoute, private router: Router, private authService: AuthService,
     private _snackBar: MatSnackBar) {
-
     this.currentUser = new UserComponent();
 
     this.formLogin = formBuilder.group({

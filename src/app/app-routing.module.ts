@@ -23,7 +23,7 @@ const routes: Routes = [
   {path: 'dados-paciente', component: DadosPacienteComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'about', component: AboutComponent},
-  {path: 'forgot-password', component: ForgotPasswordComponent},
+  {path: 'forgot-password/:token', component: ForgotPasswordComponent},
   {path: 'servicos', component: ServicosComponent},
   {path: '**', component: Page404Component }
 ];

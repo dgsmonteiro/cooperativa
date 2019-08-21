@@ -33,21 +33,23 @@ export class HomeComponent implements OnInit {
 
 
   constructor(private agendaService: AgendaService) {
+
   }
+
 
   ngOnInit() {
     if (this.user.isNutri()) {
       this.agendaService.listar()
       .subscribe((resposta: any) => {
       this.dataSource = new MatTableDataSource<any>(resposta.agendas);
-      this.displayedColumns = ['select', 'inicio', 'fim', 'servico', 'valor'];
+      this.displayedColumns = ['select', 'inicio', 'fim'];
     });
    }
     if (this.user.isPaciente()) {
       this.agendaService.meusAgendamentos()
       .subscribe((resposta: any) => {
       this.dataSource = new MatTableDataSource<any>(resposta.agendamentos);
-      this.displayedColumns = ['select', 'data', 'hora', 'servico', 'profissional'];
+      this.displayedColumns = ['select', 'data', 'hora'];
 
     });
    }

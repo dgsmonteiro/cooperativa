@@ -2,57 +2,35 @@
     <div *ngIf="user.isNutri()" class="main">
         <div class="row text-center mt-5">
             <div class="col-md-4">
-              <div class="btn-group">
-                <div
-                  class="btn btn-primary"
-                  mwlCalendarPreviousView
-                  [view]="view"
-                  [(viewDate)]="viewDate"
-                  (viewDateChange)="activeDayIsOpen = false">
-                  Anterior
-                </div>
-                <div
-                  class="btn btn-outline-secondary"
-                  mwlCalendarToday
-                  [(viewDate)]="viewDate">
-                  Hoje
-                </div>
-                <div
-                  class="btn btn-primary"
-                  mwlCalendarNextView
-                  [view]="view"
-                  [(viewDate)]="viewDate"
-                  (viewDateChange)="activeDayIsOpen = false">
-                  Próximo
-                </div>
-              </div>
+              <mat-button-toggle-group name="calendarComands" aria-label="Calendar Comands">
+
+                <mat-button-toggle mwlCalendarPreviousView color="primary" [view]="view" [(viewDate)]="viewDate"
+                  (viewDateChange)="activeDayIsOpen = false" value="anterior">Anterior</mat-button-toggle>
+            
+                <mat-button-toggle mwlCalendarToday [(viewDate)]="viewDate" value="hoje">Hoje</mat-button-toggle>
+
+                <mat-button-toggle mwlCalendarNextView color="primary" [view]="view" [(viewDate)]="viewDate"
+                  (viewDateChange)="activeDayIsOpen = false" value="proximo">Próximo</mat-button-toggle>
+
+              </mat-button-toggle-group>
+            
             </div>
             <div class="col-md-4">
               <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'pt' }}</h3>
             </div>
             <div class="col-md-4">
-              <div class="btn-group">
-                <div
-                  class="btn btn-primary"
-                  (click)="view = CalendarView.Month"
-                  [class.active]="view === CalendarView.Month">
-                  Mês
-                </div>
-                <div
-                  class="btn btn-primary"
-                  (click)="view = CalendarView.Week"
-                  [class.active]="view === CalendarView.Week"
-                  >
-                  Semana
-                </div>
-                <div
-                  class="btn btn-primary"
-                  (click)="view = CalendarView.Day"
-                  [class.active]="view === CalendarView.Day"
-                  >
-                  Dia
-                </div>
-              </div>
+              <mat-button-toggle-group name="CalendarView" aria-label="Calendar View">
+            
+                <mat-button-toggle (click)="view = CalendarView.Month" [class.active]="view === CalendarView.Month" value="mes">Mês
+                </mat-button-toggle>
+            
+                <mat-button-toggle (click)="view = CalendarView.Week" [class.active]="view === CalendarView.Week" value="semana">
+                  Semana</mat-button-toggle>
+            
+                <mat-button-toggle (click)="view = CalendarView.Day" [class.active]="view === CalendarView.Day" value="dia">Dia
+                </mat-button-toggle>
+            
+              </mat-button-toggle-group>
             </div>
           </div>
           <br>

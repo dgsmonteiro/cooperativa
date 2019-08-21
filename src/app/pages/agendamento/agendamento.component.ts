@@ -45,6 +45,10 @@ export class AgendamentoComponent implements OnInit {
   agendas: Agenda[];
   horarioSelecionado: {hora: Date, agenda: string};
   servicosDisponiveis: ServicosDisponiveis[];
+  localizacao = '';
+  lat = -23.5503099;
+  lng = -46.6342009;
+  zoom = 15;
 
 
   constructor(private agendaService: AgendaService, private authService: AuthService,
@@ -199,6 +203,10 @@ export class AgendamentoComponent implements OnInit {
       this.agendasDoMes.agendas = dados.agendas;
       this.agendasDoMes.mes = new Date();
     });
+    this.dataSelecionada = null;
+    this.horarioSelecionado = null;
+    this.horarios = [];
+    this.valorConsulta = null;
   }
 
 }

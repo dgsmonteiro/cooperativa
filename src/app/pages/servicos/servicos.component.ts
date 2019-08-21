@@ -18,7 +18,7 @@ export class ServicosComponent implements OnInit {
   formDadosPessoais: FormGroup;
   formDadosFinanceiros: FormGroup;
   zoom = 15;
-  servico:{
+  servico: {
     endereco: String,
     lat: Number,
     lng: Number,
@@ -29,7 +29,7 @@ export class ServicosComponent implements OnInit {
     valor: Number,
     formaPagamento: {dinheiro: Boolean, pagSeguro: Boolean}
   };
-  servicos:[];
+  servicos: [];
   tempoAtendimento: Number;
   instrucao: String;
   descricao: String;
@@ -43,20 +43,17 @@ export class ServicosComponent implements OnInit {
 
 
   constructor(private servicoService: ServicoService, private _formBuilder: FormBuilder, private googleMaps: GoogleMapsService) {
-      
-    
   }
 
   ngOnInit() {
-    
+
     this.servicoService.listar()
     .subscribe((resposta: any) => {
       this.servicos = resposta.servicos;
     });
-    
-    
+
   }
-  
+
 
   // search = (text$: Observable<string>) =>
   //   text$.pipe(
@@ -81,13 +78,12 @@ export class ServicosComponent implements OnInit {
       this.valor = resposta.servico.valor;
       this.dinheiro = resposta.servico.dinheiro;
       this.pagSeguro = resposta.servico.pagSeguro;
-      
 
     });
 
   }
   pesquisarEndereco() {
-    this.googleMaps.pesquisar(this.servico.endereco)
+    this.googleMaps.pesquisar(this.endereco)
     .subscribe((resposta: HttpResponse<UserComponent>) => {
       this.atualizarEndereco(resposta);
 
@@ -95,9 +91,14 @@ export class ServicosComponent implements OnInit {
   }
   atualizarEndereco(dados) {
     if ( dados.status === 'OK' && dados.results[0]) {
-      this.servico.endereco = dados.results[0].formatted_address;
-      this.servico.lat = dados.results[0].geometry.location.lat;
-      this.servico.lng = dados.results[0].geometry.location.lng;
+      this.endereco = dados.results[0].formatted_address;
+      if (this.servico) {
+        this.servico.endereco = dados.results[0].formatted_address;
+        this.servico.lat = dados.results[0].geometry.location.lat;
+        this.lat = dados.results[0].geometry.location.lat;
+        this.servico.lng = dados.results[0].geometry.location.lng;
+        this.lng = dados.results[0].geometry.location.lng;
+      }
     }
   }
   atualizar() {
@@ -111,19 +112,19 @@ export class ServicosComponent implements OnInit {
       lng: this.lng,
       valor: this.valor,
       formaPagamento: {dinheiro: this.dinheiro, pagSeguro: this.pagSeguro}
-    }
+    };
     this.servicoService.atualizar(this.servico)
     .subscribe((resposta: any) => {
       console.log(resposta);
-    })
+    });
   }
   remover(id) {
     this.servicoService.apagar(id)
     .subscribe((resposta) => {
       console.log(resposta);
-    })
+    });
   }
-  adicionar(){
+  adicionar() {
     if (this.name && this.descricao && this.instrucao && this.tempoAtendimento) {
       this.servicoService.adicionar({
         name: this.name,
@@ -136,7 +137,7 @@ export class ServicosComponent implements OnInit {
 
       }).subscribe((resposta: HttpResponse<UserComponent>) => {
       console.log(resposta);
-      })
+      });
     }
   }
 }

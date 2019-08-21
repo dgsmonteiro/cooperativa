@@ -2,7 +2,20 @@
     <div class="main background">
         <div *ngIf="user.isAutenticate()">
                 <div class="jumbotron container banner mt-5">
-
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-sm-12 ol-md-6">
+                        <h3 class="text-center mb-3">Seja Bem Vindo</h3>
+                        <p class="text-left display-7">
+                          Esse é o nosso espaço, aqui você poderá fazer o Agendamento das suas consultas.<br></p>
+                        <div class="align-right mb-5 mt-1"><button mat-raised-button color="primary"
+                            [routerLink]="['/agendamento']">Agende uma Consulta</button></div>
+                  
+                  
+                      </div>
+                    </div>
+                  
+                  </div>
                     
                     <div class="container">
                             <h3 class="text-center mb-3" *ngIf="user.isNutri()">Agendas abertas</h3>
@@ -12,14 +25,14 @@
 
                                     <!-- Checkbox Column -->
                                     <ng-container matColumnDef="select">
-                                      <th mat-header-cell *matHeaderCellDef sticky>
+                                      <th mat-header-cell *matHeaderCellDef >
                                         <mat-checkbox (change)="$event ? masterToggle() : null"
                                                       [checked]="selection.hasValue() && isAllSelected()"
                                                       [indeterminate]="selection.hasValue() && !isAllSelected()"
                                                       >
                                         </mat-checkbox>
                                       </th>
-                                      <td mat-cell *matCellDef="let row" sticky>
+                                      <td mat-cell *matCellDef="let row" >
                                         <mat-checkbox (click)="$event.stopPropagation()"
                                                       (change)="$event ? selection.toggle(row) : null"
                                                       [checked]="selection.isSelected(row)"
@@ -29,7 +42,7 @@
                                     </ng-container>
                                   
                                     <!-- Position Column -->
-                                    <ng-container matColumnDef="inicio" *ngIf="user.isNutri()">
+                                    <ng-container matColumnDef="inicio" *ngIf="user.isNutri()" >
                                       <th mat-header-cell *matHeaderCellDef> Data Inicio </th>
                                       <td mat-cell *matCellDef="let element"> {{element.inicio | date:'dd/MM/yyyy'}} </td>
                                     </ng-container>
@@ -51,21 +64,21 @@
                                     </ng-container>
                                   
                                     <!-- Weight Column -->
-                                    <ng-container matColumnDef="servico">
-                                      <th mat-header-cell *matHeaderCellDef> Serviço </th>
-                                      <td mat-cell *matCellDef="let element"> {{element.servico}} </td>
-                                    </ng-container>
-                                    <ng-container matColumnDef="profissional" *ngIf="user.isPaciente()">
+                                   
+                                    <!-- <ng-container matColumnDef="profissional" *ngIf="user.isPaciente()" class="ocultaNoMovel">
                                       <th mat-header-cell *matHeaderCellDef> Profissional </th>
                                       <td mat-cell *matCellDef="let element"> {{element.profissional}} </td>
-                                    </ng-container>
+                                    </ng-container> -->
                                   
                                     <!-- Symbol Column -->
-                                    <ng-container matColumnDef="valor" *ngIf="user.isNutri()">
+                                    <!-- <ng-container matColumnDef="valor" *ngIf="user.isNutri()" class="ocultaNoMovel">
                                       <th mat-header-cell *matHeaderCellDef> Valor </th>
                                       <td mat-cell *matCellDef="let element"> {{element.valor | currency:'R$'}} </td>
                                     </ng-container>
-                                  
+                                    <ng-container matColumnDef="servico" class="ocultaNoMovel" stickyEnd>
+                                      <th mat-header-cell *matHeaderCellDef> Serviço </th>
+                                      <td mat-cell *matCellDef="let element"> {{element.servico}} </td>
+                                    </ng-container> -->
                                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"
                                         (click)="selection.toggle(row)">
@@ -74,23 +87,7 @@
                                   <div class="align-right mb-3 mt-1" *ngIf="user.isAutenticate()"><button mat-raised-button color="primary" (click)="cancelarAgendas()">Cancelar selecionados</button></div>
                     </div>
 
-                    <div class="container">
-                            <div class="row">
-                                <div class="col-sm-12 ol-md-6">
-                                    <h3 class="text-center mb-3">Seja Bem Vindo</h3>
-                                    <p class="text-left display-7">
-                                        Esse é o nosso espaço, aqui você poderá encontrar mais detalhes sobre seu acompanhamento nutricional:
-                                        <br>- Agendamento de Consultas;
-                                        <br>- Acompanhamento de Medidas;
-                                        <br>- Metas;
-                                        <br>- Desafios.<br></p>
-                                        <div class="align-right mb-3 mt-1"><button mat-raised-button color="primary" [routerLink]="['/agendamento']">Agende uma Consulta</button></div>
-
-                                            
-                                </div>
-                            </div>
-                           
-                        </div>
+                    
                    
         </div>
        

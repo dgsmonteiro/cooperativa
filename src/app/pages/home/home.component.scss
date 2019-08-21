@@ -108,10 +108,10 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    height: 800px;
+    height: 100vh;
     @media only screen and (min-width: 1200px) {
       /* styles for wide screens */    
-      height: 800px; 
+      height: 100vh; 
     } 
   }
   .card-img{
@@ -143,4 +143,10 @@
     .imagem-capa {
       width: 500px;
     }
+    .ocultaNoMovel{
+      display: none;
+    }
   }
+  agm-map {
+    height: 300px;
+   }

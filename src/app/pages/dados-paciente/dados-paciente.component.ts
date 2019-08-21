@@ -22,11 +22,12 @@ export class DadosPacienteComponent implements OnInit {
   formDadosPessoais: FormGroup;
   formDadosFinanceiros: FormGroup;
   zoom = 15;
+  localizacao = '';
+  lat = -23.5503099;
+  lng = -46.6342009;
 
 
   constructor(private pacienteService: PacienteService, private _formBuilder: FormBuilder, private googleMaps: GoogleMapsService) {
-
-
   }
 
   ngOnInit() {
@@ -34,6 +35,7 @@ export class DadosPacienteComponent implements OnInit {
       this.pacienteService.listar()
     .subscribe((resposta: any) => {
       this.pacientes = resposta.pacientes;
+      this.selecionaPaciente(resposta.pacientes[0]);
     });
     } else {
       this.pacienteService.selecionar(this.user.id)
@@ -57,7 +59,7 @@ export class DadosPacienteComponent implements OnInit {
     this.pacienteService.selecionar(paciente._id)
     .subscribe((resposta: Paciente) => {
       this.paciente = resposta;
-
+      this.pesquisarEndereco();
     });
 
   }
@@ -71,8 +73,11 @@ export class DadosPacienteComponent implements OnInit {
   atualizarEndereco(dados) {
     if ( dados.status === 'OK' && dados.results[0]) {
       this.paciente.dadosPaciente.endereco = dados.results[0].formatted_address;
+      this.localizacao = dados.results[0].formatted_address;
       this.paciente.dadosPaciente.lat = dados.results[0].geometry.location.lat;
+      this.lat = dados.results[0].geometry.location.lat;
       this.paciente.dadosPaciente.lng = dados.results[0].geometry.location.lng;
+      this.lng = dados.results[0].geometry.location.lng;
     }
   }
   atualizar() {
