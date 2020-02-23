@@ -3,7 +3,8 @@ import {
 } from '@angular/core';
 import { UserComponent } from '../../components/user/user.component';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { MatSnackBar, MatTableDataSource } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
 import {
   PRESET_FORMS, PRESET_VALIDATORS, PRESET_FORMATTERS
 } from '../../models/FormModal';

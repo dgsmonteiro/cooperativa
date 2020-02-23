@@ -3,8 +3,16 @@ import { CommonModule } from '@angular/common';
 import { MenuComponent } from './menu.component';
 import { HeaderModule } from '../header/header.module';
 import { FooterModule } from '../footer/footer.module';
-import { MatSidenavModule, MatFormFieldModule, MatSelectModule, MatButtonModule, MatIconModule,
-  MatTabsModule, MatListModule, MatCardModule, MatDividerModule, MatInputModule} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTabsModule } from '@angular/material/tabs';
 import { RouterModule } from '@angular/router';
 
 @NgModule({

@@ -4,7 +4,7 @@ import { UserComponent } from 'src/app/components/user/user.component';
 import { User } from 'src/app/models/User';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpResponse } from '@angular/common/http';
 import { switchMap } from 'rxjs/operators';
 

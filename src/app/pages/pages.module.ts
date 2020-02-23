@@ -37,9 +37,13 @@ import { AgmCoreModule } from '@agm/core';
 
 
 import ptBr from '@angular/common/locales/pt';
-import { MatNativeDateModule, MatStepperModule, MatCheckboxModule, MatAutocompleteModule, MatDialogModule,
-  MatSnackBarModule,
-  MatButtonToggleModule} from '@angular/material';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatStepperModule } from '@angular/material/stepper';
 import { AbrirAgendaComponent } from './abrir-agenda/abrir-agenda.component';
 import { ServicosComponent } from './servicos/servicos.component';
 

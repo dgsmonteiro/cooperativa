@@ -8,7 +8,7 @@ import { Agendamento } from 'src/app/models/Agendamento';
 import { NumberValueAccessor } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserComponent } from 'src/app/components/user/user.component';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface ServicosDisponiveis {
   name: string;

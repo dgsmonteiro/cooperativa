@@ -4,7 +4,7 @@ import { UserComponent } from 'src/app/components/user/user.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',

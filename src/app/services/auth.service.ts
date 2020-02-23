@@ -5,7 +5,7 @@ import { map, catchError } from 'rxjs/operators';
 
 import {User} from '../models/User';
 import { environment } from 'src/environments/environment';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'

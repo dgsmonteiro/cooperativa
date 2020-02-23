@@ -7,7 +7,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { AgendaService } from 'src/app/services/agenda.service';
 import { ThrowStmt } from '@angular/compiler';
 import { ServicoService } from 'src/app/services/servico.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface DadosServico {
   name: string;
