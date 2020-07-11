@@ -27,9 +27,9 @@
               "src/theme.scss",
               "src/styles.css",
               "node_modules/flatpickr/dist/flatpickr.css",
-              "node_modules/angular-calendar/css/angular-calendar.css"            ],
-            "scripts": [
-            ]
+              "node_modules/angular-calendar/css/angular-calendar.css"
+            ],
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -141,5 +141,8 @@
     "@schematics/angular:component": {
       "style": "scss"
     }
+  },
+  "cli": {
+    "analytics": "a33185c5-c6af-4c47-b1d2-6dc0f4348af4"
   }
 }

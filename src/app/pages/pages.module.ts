@@ -28,7 +28,7 @@ import { AgendamentoComponent } from './agendamento/agendamento.component';
 import { DadosPacienteComponent } from './dados-paciente/dados-paciente.component';
 import { MenuModule } from '../components/menu/menu.module';
 import { CalendarModule, CalendarCommonModule, DateAdapter} from 'angular-calendar';
-import { FlatpickrModule } from 'angularx-flatpickr';
+// import { FlatpickrModule } from 'angularx-flatpickr';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { registerLocaleData } from '@angular/common';
@@ -80,7 +80,7 @@ registerLocaleData(ptBr);
     CalendarCommonModule,
     CalendarModule,
     NgxMaterialTimepickerModule,
-    FlatpickrModule.forRoot({locale: ptBr}),
+    // FlatpickrModule.forRoot({locale: ptBr}),
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
