@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { UserComponent } from 'src/app/components/user/user.component';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { GoogleMapsService } from 'src/app/services/googlemaps.service';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
@@ -21,13 +21,16 @@ export interface DadosServico {
   styleUrls: ['./abrir-agenda.component.scss']
 })
 export class AbrirAgendaComponent implements OnInit {
-
+  
   passo1: FormGroup;
   passo2: FormGroup;
   passo3: FormGroup;
   passo4: FormGroup;
 
   user: UserComponent = new UserComponent;
+
+  campaignOne: FormGroup;
+  campaignTwo: FormGroup;
 
   minDate = new Date();
   maxDate = new Date(2020, 0, 1);
@@ -53,7 +56,21 @@ export class AbrirAgendaComponent implements OnInit {
   novoServico: DadosServico;
 
   constructor(private _formBuilder: FormBuilder, private googleMaps: GoogleMapsService, private _snackBar: MatSnackBar,
-    public dialog: MatDialog, private agendaService: AgendaService, private servicoService: ServicoService) { }
+    public dialog: MatDialog, private agendaService: AgendaService, private servicoService: ServicoService) {
+      const today = new Date();
+      const month = today.getMonth();
+      const year = today.getFullYear();
+  
+      this.campaignOne = new FormGroup({
+        start: new FormControl(new Date(year, month, 13)),
+        end: new FormControl(new Date(year, month, 16))
+      });
+  
+      this.campaignTwo = new FormGroup({
+        start: new FormControl(new Date(year, month, 15)),
+        end: new FormControl(new Date(year, month, 19))
+      });
+     }
 
   ngOnInit() {
     this.passo1 = this._formBuilder.group({

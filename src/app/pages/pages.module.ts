@@ -53,6 +53,7 @@ registerLocaleData(ptBr);
 
 @NgModule({
   imports: [
+    MatDatepickerModule,
     NgbModalModule,
     NgbTypeaheadModule,
     MatSidenavModule,
@@ -67,7 +68,6 @@ registerLocaleData(ptBr);
     MatInputModule,
     MatTableModule,
     MatToolbarModule,
-    MatDatepickerModule,
     MatAutocompleteModule,
     MatDialogModule,
     MatNativeDateModule,
