@@ -1,6 +1,6 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { AgendaService } from 'src/app/services/agenda.service';
-import {MatDatepickerInputEvent} from '@angular/material/datepicker';
+import {MatCalendarUserEvent} from '@angular/material/datepicker';
 import { Agenda } from '../../models/Agenda';
 import { addHours, addMinutes } from 'date-fns';
 import { ServicoService } from 'src/app/services/servico.service';
@@ -29,7 +29,7 @@ export interface Servico {
 export class AgendamentoComponent implements OnInit {
   user: UserComponent = new UserComponent();
   minDate = new Date();
-  maxDate = new Date(2020, 1, 1);
+  maxDate = new Date(2022, 1, 1);
   valorConsulta: number;
   servico: string;
   dataSelecionada: Date;
@@ -52,19 +52,23 @@ export class AgendamentoComponent implements OnInit {
 
 
   constructor(private agendaService: AgendaService, private authService: AuthService,
-    private renderer: Renderer2, private _snackBar: MatSnackBar) { }
+    private renderer: Renderer2, private _snackBar: MatSnackBar) {
+      this.agendasDoMes = {
+        'mes' : new Date(),
+        'agendas' : new Array()
+      }
+     }
 
   ngOnInit() {
-    this.agendasDoMes = {mes: new Date(), agendas: new Array()};
-    // this.agendaService.listar()
-    //   .subscribe((dados: any) => {
-    //     if (dados.agendas.length > 0) {
-    //       const agendas: Agenda[] = dados.agendas;
-    //       for (const agenda of agendas) {
-    //           this.agendasDoMes.agendas.push(agenda);
-    //       }
-    //     }
-    // });
+    this.agendaService.listar()
+      .subscribe((dados: any) => {
+        if (dados.agendas.length > 0) {
+          const agendas: Agenda[] = dados.agendas;
+          for (const agenda of agendas) {
+              this.agendasDoMes.agendas.push(agenda);
+          }
+        }
+    });
     this.authService.listarServicos()
     .subscribe(resposta => {
       this.servicos = resposta.servicos;
@@ -118,11 +122,10 @@ export class AgendamentoComponent implements OnInit {
     });
   }
 
-  selecionarDia($event: MatDatepickerInputEvent<Date>) {
+  selecionarDia($event: MatCalendarUserEvent<Date>) {
     this.dataSelecionada = new Date($event.value);
     for (const agenda of this.agendas) {
       this.agenda = agenda;
-      if (this.agenda.servicoId) {
         if (this.agenda.agendamentos.length > 0) {
           let horario: Date = new Date(this.dataSelecionada);
           const fimDoDia: Date = new Date(this.dataSelecionada);
@@ -164,7 +167,7 @@ export class AgendamentoComponent implements OnInit {
             horario = addMinutes(horario, this.agenda.tempoAtendimento + 10);
           }
         }
-      }
+      
     }
   }
 

@@ -47,29 +47,21 @@ export class AbrirAgendaComponent implements OnInit {
     domingo: false
   };
 
-
+  tipoAtendimento = 'presencial';
   localizacao = '';
   lat = -23.5503099;
   lng = -46.6342009;
   zoom = 15;
+  range = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl()
+  });
   servicos: { name: string; descricao: string; valor: number; }[];
   novoServico: DadosServico;
 
   constructor(private _formBuilder: FormBuilder, private googleMaps: GoogleMapsService, private _snackBar: MatSnackBar,
     public dialog: MatDialog, private agendaService: AgendaService, private servicoService: ServicoService) {
-      const today = new Date();
-      const month = today.getMonth();
-      const year = today.getFullYear();
-  
-      this.campaignOne = new FormGroup({
-        start: new FormControl(new Date(year, month, 13)),
-        end: new FormControl(new Date(year, month, 16))
-      });
-  
-      this.campaignTwo = new FormGroup({
-        start: new FormControl(new Date(year, month, 15)),
-        end: new FormControl(new Date(year, month, 19))
-      });
+      
      }
 
   ngOnInit() {
@@ -92,7 +84,7 @@ export class AbrirAgendaComponent implements OnInit {
       domingo: [false]
     });
     this.passo3 = this._formBuilder.group({
-      localizacao: ['', Validators.required]
+      localizacao: ['']
     });
     this.passo4 = this._formBuilder.group({
       valorConsulta: ['', Validators.required],
@@ -155,19 +147,19 @@ export class AbrirAgendaComponent implements OnInit {
       this.agendaService.nova({
         user: this.user,
         userId: this.user.id,
-        inicio: this.passo2.value.horarioSelecionado.from,
-        fim: this.passo2.value.horarioSelecionado.to,
+        inicio: this.range.value.start,
+        fim: this.range.value.end,
         horaInicio: this.passo2.value.horaInicio,
         horaFim: this.passo2.value.horaFim,
         servico: this.novoServico.name,
         servicoId: this.passo1.value.servico,
         tempoAtendimento: this.passo1.value.tempoServico,
-        endereco: this.passo3.value.localizacao,
+        endereco: this.tipoAtendimento = 'presencial' ? this.passo3.value.localizacao : 'Atendimento Online',
         valor: this.passo4.value.valorConsulta,
         formaPagamento: {dinheiro: this.passo4.value.dinheiro, pagseguro: this.passo4.value.pagseguro},
 
       }).subscribe((resposta: HttpResponse<UserComponent>) => {
-      console.log(resposta);
+        window.location.replace('/');
       }, (error) => {
         this._snackBar.open(`${error.error.error}`, 'Fechar', {
           duration: 2000
