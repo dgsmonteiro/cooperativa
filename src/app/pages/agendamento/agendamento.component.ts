@@ -46,8 +46,8 @@ export class AgendamentoComponent implements OnInit {
   horarioSelecionado: {hora: Date, agenda: string};
   servicosDisponiveis: ServicosDisponiveis[];
   localizacao = '';
-  lat = -23.5503099;
-  lng = -46.6342009;
+  lat = -200;
+  lng = -200;
   zoom = 15;
 
 

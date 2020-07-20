@@ -27,3 +27,23 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
 // that you are using.
 @include angular-material-theme($my-app-theme);
 @import './../node_modules/bootstrap/dist/css/bootstrap';
+
+/* width */
+::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #96bb7c;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #184d47;
+  }

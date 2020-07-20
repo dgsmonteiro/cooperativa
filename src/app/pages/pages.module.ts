@@ -34,7 +34,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { registerLocaleData } from '@angular/common';
 import { NgbModalModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgmCoreModule } from '@agm/core';
-
+import {IMaskModule} from 'angular-imask';
 
 import ptBr from '@angular/common/locales/pt';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -79,6 +79,7 @@ registerLocaleData(ptBr);
     ReactiveFormsModule,
     CalendarCommonModule,
     CalendarModule,
+    IMaskModule,
     NgxMaterialTimepickerModule,
     // FlatpickrModule.forRoot({locale: ptBr}),
     CalendarModule.forRoot({

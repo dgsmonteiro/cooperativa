@@ -9,18 +9,29 @@
         <mat-step [stepControl]="passo1">
           <form [formGroup]="passo1">
             <ng-template matStepLabel>Tipo de Serviço</ng-template>
-            <mat-form-field class="col-7"> 
+            <mat-form-field class="col-8"> 
               <mat-select placeholder="Serviço" [(ngModel)]="passo1.value.servico" formControlName="servico" (ngModelChange)="selecionaServico()">
                 <mat-option *ngFor="let servico of servicos" [value]="servico._id">{{servico.name}}</mat-option>
               </mat-select>
             </mat-form-field>
 
-            <a class="col-3 ml-2" mat-raised-button color="primary" [routerLink]="['/servico']">Novo</a>
+            <a class="col-3" mat-raised-button color="accent" [routerLink]="['/servicos']">Novo</a>
 
-            <mat-form-field class="col-10">
-              <input matInput placeholder="Tempo de Atendimento" type="number" [(ngModel)]="passo1.value.tempoServico" formControlName="tempoServico">
+            <mat-form-field *ngIf="novoServico" class="col-6">
+              <input matInput disabled="true" placeholder="Tempo de Atendimento" [value]="novoServico.tempoServico">
               <span matSuffix>&nbsp;minutos</span>
             </mat-form-field>
+            <mat-form-field *ngIf="novoServico" class="col-6">
+              <input matInput placeholder="Valor" disabled="true" type="number" [value]="novoServico.valor">
+              <span matPrefix>R$&nbsp;</span>
+              <span matSuffix>.00</span>
+            </mat-form-field>
+            <mat-form-field *ngIf="novoServico" class="col-8">
+              <textarea matInput disabled="true" type="text" rows="3" placeholder="Descrição" [value]="novoServico.descricao"></textarea>
+            </mat-form-field>
+
+            <a class="col-2" mat-raised-button color="secondary" *ngIf="passo1.value.servico" [routerLink]="['/servico', passo1.value.servico]">Editar</a>
+
 
         
             <div class="row justify-content-end mt-5">
@@ -131,14 +142,14 @@
               <mat-button-toggle value="remoto">Online</mat-button-toggle>
               <mat-button-toggle value="presencial">Presencial</mat-button-toggle>
             </mat-button-toggle-group>
-            <div *ngIf="tipoAtendimento === 'presencial'">
-              <mat-form-field class="col-10">
+            <div class="mt-2" *ngIf="tipoAtendimento === 'presencial'">
+              <mat-form-field class="col-8">
                 <input type="search" matInput placeholder="Endereço" formControlName="localizacao" [(ngModel)]="localizacao">
               </mat-form-field>
               <button class="col-2" mat-raised-button color="primary" (click)="pesquisarEndereco()">Ir</button>
   
   
-                <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng">
+                <agm-map *ngIf="lat > -89 && lng > -179" class="mt-2" [latitude]="lat" [zoom]="zoom" [longitude]="lng">
                   <agm-marker  [latitude]="lat" [longitude]="lng"></agm-marker>
                 </agm-map>
             </div>

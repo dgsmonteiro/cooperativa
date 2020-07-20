@@ -13,6 +13,7 @@ export interface DadosServico {
   name: string;
   descricao: string;
   valor: Number;
+  tempoServico: string;
 }
 
 @Component({
@@ -49,8 +50,8 @@ export class AbrirAgendaComponent implements OnInit {
 
   tipoAtendimento = 'presencial';
   localizacao = '';
-  lat = -23.5503099;
-  lng = -46.6342009;
+  lat = -200;
+  lng = -200;
   zoom = 15;
   range = new FormGroup({
     start: new FormControl(),
@@ -132,14 +133,12 @@ export class AbrirAgendaComponent implements OnInit {
       this.novoServico = {
         valor: resposta.servico.valor,
         name: resposta.servico.name,
-        descricao: ''
+        descricao: resposta.servico.descricao,
+        tempoServico: resposta.servico.tempoAtendimento
+
       };
       this.passo1.value.tempoServico = resposta.servico.tempoAtendimento;
       this.passo1.value.valorConsulta = resposta.servico.valor;
-    }, (error) => {
-      this._snackBar.open(`${error.error.error}`, 'Fechar', {
-        duration: 2000
-      });
     });
   }
   abrirAgenda() {
@@ -155,6 +154,8 @@ export class AbrirAgendaComponent implements OnInit {
         servicoId: this.passo1.value.servico,
         tempoAtendimento: this.passo1.value.tempoServico,
         endereco: this.tipoAtendimento = 'presencial' ? this.passo3.value.localizacao : 'Atendimento Online',
+        lat: this.lat,
+        lng: this.lng,
         valor: this.passo4.value.valorConsulta,
         formaPagamento: {dinheiro: this.passo4.value.dinheiro, pagseguro: this.passo4.value.pagseguro},
 

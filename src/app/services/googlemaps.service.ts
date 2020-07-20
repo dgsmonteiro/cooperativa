@@ -13,7 +13,7 @@ export class GoogleMapsService {
 
    }
    pesquisar(texto) {
-    return this.http.get<any>(`${environment.googleMapsUrl}/json?address=${texto}&key=AIzaSyDfPbNnfE5ktwmYBMuI_S7jH04khiAQomM`)
+    return this.http.get<any>(`https://cors-anywhere.herokuapp.com/${environment.googleMapsUrl}/json?address=${texto}&key=AIzaSyDfPbNnfE5ktwmYBMuI_S7jH04khiAQomM`)
         .pipe(map(resposta => {
           return resposta;
         }));

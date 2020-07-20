@@ -21,16 +21,12 @@ form {
 }
 
 .main {
-  top: 60px;
   overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
-  
 }
 .main::before{
-  width: 100vw;
-  height: 100vh;
   position: fixed;
   content: "";
   z-index: -10;
@@ -101,7 +97,67 @@ mat-drawer {
   top: 60px;
   position: fixed;
 }
-
+.background{
+  background-image: url(../../../assets/images/legumes.jpg);
+  background-attachment: fixed;
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  @media only screen and (min-width: 1200px) {
+    /* styles for wide screens */    
+    height: 100vh; 
+  } 
+  @media only screen and (max-width: 500px) {
+    /* styles for wide screens */    
+    height: 100vh; 
+  } 
+}
 .card-img{
   height: 230px;
 }
+.banner {
+  color: green;
+  text-align: end;
+  text-shadow: 3px 3px 5px lightgreen;
+  a {
+    color: white;
+  }
+}
+.jumbotron {
+  background-color: rgba(255, 255, 255, 0.7);
+  width: 85%;
+}
+table {
+  width: 100%;
+}
+.mat-cell {
+  text-align: left;
+}
+.imagem-capa {
+  float: right;
+  width: 250px;
+}
+@media screen and (min-width: 900px) {
+  .imagem-capa {
+    width: 500px;
+  }
+  .ocultaNoMovel{
+    display: none;
+  }
+}
+@media screen and (max-width: 500px) {
+  .imagem-capa {
+    width: 150px;
+  }
+  .ocultaNoMovel{
+    display: none;
+  }
+}
+
+agm-map {
+  height: 300px;
+ }

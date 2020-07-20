@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // apiUrl: 'http://localhost:3000',
-  apiUrl: 'https://www.tatiane.ntr.br:3000',
+  apiUrl: 'http://10.0.0.104:3000',
+  // apiUrl: 'https://www.tatiane.ntr.br:3000',
   googleMapsUrl: 'https://maps.googleapis.com/maps/api/geocode'
 };
 

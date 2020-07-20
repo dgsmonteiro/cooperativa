@@ -5,6 +5,7 @@ import { GoogleMapsService } from 'src/app/services/googlemaps.service';
 import { HttpResponse } from '@angular/common/http';
 import { ServicoService } from 'src/app/services/servico.service';
 import { throttleTime } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-servicos',
@@ -42,11 +43,13 @@ export class ServicosComponent implements OnInit {
   lng: Number;
 
 
-  constructor(private servicoService: ServicoService, private _formBuilder: FormBuilder, private googleMaps: GoogleMapsService) {
+  constructor(private rota: ActivatedRoute, private servicoService: ServicoService, private _formBuilder: FormBuilder, private googleMaps: GoogleMapsService) {
   }
 
   ngOnInit() {
-
+    this.rota.params.subscribe((idServico) => {
+      this.selecionaServico(idServico.idServico);
+    });
     this.servicoService.listar()
     .subscribe((resposta: any) => {
       this.servicos = resposta.servicos;
@@ -63,9 +66,9 @@ export class ServicosComponent implements OnInit {
   //       : this.servicos.name.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
   //   )
 
-  selecionaServico (servico: any) {
+  selecionaServico (idServico: any) {
     this.servico = null;
-    this.servicoService.selecionar(servico._id)
+    this.servicoService.selecionar(idServico)
     .subscribe((resposta: any) => {
       this.servico = resposta.servico;
       this.name = resposta.servico.name;

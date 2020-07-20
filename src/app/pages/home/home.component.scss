@@ -25,7 +25,6 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    
   }
   .main::before{
     position: fixed;
@@ -108,8 +107,11 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    height: 100vh;
     @media only screen and (min-width: 1200px) {
+      /* styles for wide screens */    
+      height: 100vh; 
+    } 
+    @media only screen and (max-width: 500px) {
       /* styles for wide screens */    
       height: 100vh; 
     } 
@@ -137,9 +139,9 @@
   }
   .imagem-capa {
     float: right;
-    width: 150px;
+    width: 250px;
   }
-  @media screen and (min-width: 500px) {
+  @media screen and (min-width: 900px) {
     .imagem-capa {
       width: 500px;
     }
@@ -147,6 +149,15 @@
       display: none;
     }
   }
+  @media screen and (max-width: 500px) {
+    .imagem-capa {
+      width: 150px;
+    }
+    .ocultaNoMovel{
+      display: none;
+    }
+  }
+  
   agm-map {
     height: 300px;
    }

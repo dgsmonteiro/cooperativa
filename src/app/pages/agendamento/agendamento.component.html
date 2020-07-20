@@ -40,7 +40,7 @@
       <button class="col-3" mat-raised-button color="primary" (click)="agendar()">Agendar</button>
     </div>
 
-    <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng">
+    <agm-map *ngIf="lat > -89 && lng > -179" [latitude]="lat" [zoom]="zoom" [longitude]="lng">
         <agm-marker  [latitude]="lat" [longitude]="lng"></agm-marker>
       </agm-map>
   </div>

@@ -9,6 +9,8 @@ export class Agenda {
       horaInicio: string;
       horaFim: string;
       endereco: string;
+      lat: string;
+      lng: string;
       tempoAtendimento: number;
       valor: string;
       formaPagamento: {

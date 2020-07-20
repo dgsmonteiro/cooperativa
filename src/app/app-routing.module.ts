@@ -25,6 +25,7 @@ const routes: Routes = [
   {path: 'about', component: AboutComponent},
   {path: 'forgot-password/:token', component: ForgotPasswordComponent},
   {path: 'servicos', component: ServicosComponent},
+  {path: 'servico/:idServico', component: ServicosComponent},
   {path: '**', component: Page404Component }
 ];
 
